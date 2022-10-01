@@ -4,7 +4,7 @@
 ### Not a separate app, envisions as add on to kukarella app
 ### Program started 3 years ago
 ### Have you had capstone before?
-### 2 years ago, 2 groups. Worked on different project. One didn’t work, one was virtual messenger that worked internationally, 3d object. Select point on the map and send virtual message, Prototype project.
+2 years ago, 2 groups. Worked on different project. One didn’t work, one was virtual messenger that worked internationally, 3d object. Select point on the map and send virtual message, Prototype project.
 ### Check out kukarella table reads
 ### Resolve issue with where character is sourced, is the image provided? Do we code animation? This is where we need to brainstorm because client isn’t sure
 ### Possibly animating still photos, could be done with AI // I like this

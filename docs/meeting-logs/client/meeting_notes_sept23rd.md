@@ -22,7 +22,10 @@ Shouldn’t be too much of a language constriction. Should be a few options to a
 Mostly be working on our own repo, not a lot of outside help. If it becomes impossible we may get a hand.
 Not a separate app, envisions as add on to kukarella app
 Kukarella can make an API endpoint we can REQUEST to utilize their text to speech. Down the line
-### What is the most important aspect? Important it works and works fast. Not too much buffer time, lip sync looks realistic, even in different languages. Be better than competitors. Main competitor Is DID for animated still images. 
+### What is the most important aspect? 
+Important it works and works fast. Not too much buffer time, lip sync looks realistic, even in different languages. Be better than competitors. Main competitor Is DID for animated still images. 
+
+### Final notes
 Set a goal, important to release in chunks, every 2 weeks (atleast) there should be new functionality.
 Client will be available for the full duration of the course
 Client suggests time is plenty, try and come above and beyond, we will reassess at Christmas and see the progress we have made.

@@ -4,12 +4,10 @@
 ### Not a separate app, envisions as add on to kukarella app
 ### Program started 3 years ago
 ### Have you had capstone before?
-2 years ago, 2 groups. Worked on different project. One didn’t work, one was virtual messenger that worked internationally, 3d object. Select point on the map and send virtual message, Prototype project.
-### Check out kukarella table reads
-### Resolve issue with where character is sourced, is the image provided? Do we code animation? This is where we need to brainstorm because client isn’t sure
-### Possibly animating still photos, could be done with AI // I like this
-### All groups maybe work on same model, could save us effort
-### Research on the animating tech first, decide what is possible what is not early on
+2 years ago, 2 groups. Worked on different project. One didn’t work, one was virtual messenger that worked internationally, 3d object. Select point on the map and send virtual message, Prototype project. Check out kukarella table reads. Resolve issue with where character is sourced, is the image provided? Do we code animation? This is where we need to brainstorm because client isn’t sure. Possibly animating still photos, could be done with AI.
+### 
+All groups maybe work on same model, could save us effort
+Research on the animating tech first, decide what is possible what is not early on
 ### Meeting expectations, same time Friday at 4, expected online, maybe every 2 weeks we do in person. Client has no problem with Friday at 4 on zoom. Client also uses Discord, and he likes it
 ### Client suggested making a server on Discord for the project, he will invite us. Questions will be in the client discord
 ### Client says if we need help, we can possibly ask their developers, however they are quite busy so don’t pester them too much.

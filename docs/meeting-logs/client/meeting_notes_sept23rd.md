@@ -12,7 +12,6 @@ user can select an avatar, enter text, and have it recited back via animation. P
 ### How can we create something that gives the user the ability to upload an image or multiple images, and it is made to ‘come alive’ in a sense in pair with kukarellas speech to text.
 Preferred goal is user upload of an image, have to research to see if this is possible to do. This is not necessary but preferred.
 Sizing of the avatars window while narrating text?
-#
 Avatar can be used anywhere, doesn’t belong to Kukarella.
 Program is fully portable. Generates video, that video is downloadable/embeddable
 ### Milestones/important criteria. Do research on which path for animation. Get it done in the next week, max 2. Discuss approaches with client.

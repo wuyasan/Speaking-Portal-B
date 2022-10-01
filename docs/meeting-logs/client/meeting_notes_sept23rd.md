@@ -15,7 +15,7 @@ Sizing of the avatars window while narrating text?
 #
 Avatar can be used anywhere, doesn’t belong to Kukarella.
 Program is fully portable. Generates video, that video is downloadable/embeddable
-Milestones/important criteria. Do research on which path for animation. Get it done in the next week, max 2. Discuss approaches with client.
+### Milestones/important criteria. Do research on which path for animation. Get it done in the next week, max 2. Discuss approaches with client.
 Flow of API. Focus is on the backend application. This process should create the image as well as source the text to speech from kukarella. 
 Markers in an audio file to match up with text so lips are synced. Kukarella does not process this tech.
 Backend app consumes input img/avatar, as well as the text/audio.
@@ -23,7 +23,7 @@ Backend app for kukarella is where we will run. Kukarellas written in TypeScript
 Shouldn’t be too much of a language constriction. Should be a few options to access Kukarellas backend
 Mostly be working on our own repo, not a lot of outside help. If it becomes impossible we may get a hand.
 Kukarella can make an API endpoint we can REQUEST to utilize their text to speech. Down the line
-What is the most important aspect? Important it works and works fast. Not too much buffer time, lip sync looks realistic, even in different languages. Be better than competitors. Main competitor Is DID for animated still images. 
+### What is the most important aspect? Important it works and works fast. Not too much buffer time, lip sync looks realistic, even in different languages. Be better than competitors. Main competitor Is DID for animated still images. 
 Set a goal, important to release in chunks, every 2 weeks (atleast) there should be new functionality.
 Client will be available for the full duration of the course
 Client suggests time is plenty, try and come above and beyond, we will reassess at Christmas and see the progress we have made.

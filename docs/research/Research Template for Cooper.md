@@ -1,7 +1,11 @@
 # Research Template for Cooper
 ## Research Notes
 This research is dedicated to the purpose of finding a technical way of animating a still image into narrating a section of provided text with relatively life-like qualities. There are approaches available with limited success, and enclosed is even a test run of the technology described in action. Problems with this approach include requiring to convert text selected for reading to an audio file prior to generating the animated image. On top of needing to call this service from Kukarella in the first place, this could result in long wait times. Realism is debatable as the animation has a robot-like quality to it, but ultimately this is decided by the project proponent.
-### Basic Approches
+### Basic Approaches
+
+
+
+https://user-images.githubusercontent.com/77300788/194159692-1ed67e3d-5a27-47db-987d-8a520725ba3a.mp4
 
 
 ### Difficult Points

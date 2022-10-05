@@ -17,6 +17,7 @@ https://sites.google.com/view/facialsynthesis/home
 
 ### Links to Relevant Repositories 
 https://github.com/yzhou359/MakeItTalk
+#
 https://github.com/DinoMan/speech-driven-animation
 ## Choice of Tech Stack
 Python is a very possible choice for this project due to its simplicity and accessibility. It runs on all major platforms, and there is no need for a native compiler to translate at runtime. It is relatively easy to understand even if you have no major experience in python and other programming skills transfer over nicely. Python is also home to thousands of external libraries that can make development a lot smoother. In the case of this project, popular python libraries such as Tensor Flow will be integral for resources such as image recognition and natural language processing.  

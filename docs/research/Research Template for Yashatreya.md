@@ -13,5 +13,13 @@ The instance will produce an animated image and pass it to another script runnin
 2. The second approach requires a lot of trial and error fine-tuning to first get the animation right and then superimposing the audio on it. It will be tedious and time consuming.
 ## References
 
+- [Google Compute Engine](https://cloud.google.com/compute)
+- [Amazon EC2](https://aws.amazon.com/ec2/)
+- [University of Washington - Animating Faces Paper](http://grail.cs.washington.edu/projects/realface/)
+- [First Order Image Animation Model](https://github.com/AliaksandrSiarohin/first-order-model)
+- [Spline Motion Model](https://github.com/yoyo-nb/Thin-Plate-Spline-Motion-Model)
+- [Talking Head Animation](https://github.com/harlanhong/awesome-talking-head-generation)
+- [Speaker Aware Talking Head Animation](https://github.com/yzhou359/MakeItTalk)
+
 ## Choice of Tech Stack
 

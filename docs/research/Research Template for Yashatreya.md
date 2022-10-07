@@ -9,7 +9,8 @@ The instance will produce an animated image and pass it to another script runnin
 2. The more harder approach is to programmatically is to make multiple versions of the provided image with expressions relevant to the speech and then combining this into a video.
 
 ### Difficult Points
-
+1. In the first approach, it will be easy to animate an image but it will be difficult to sync the expressions with the speech and audio.
+2. The second approach requires a lot of trial and error fine-tuning to first get the animation right and then superimposing the audio on it. It will be tedious and time consuming.
 ## References
 
 ## Choice of Tech Stack

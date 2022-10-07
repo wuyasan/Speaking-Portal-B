@@ -23,3 +23,15 @@ The instance will produce an animated image and pass it to another script runnin
 
 ## Choice of Tech Stack
 
+### Front End
+
+- [NextJS by Vercel](https://nextjs.org/) is probably the highest performing industry-standard framework that we can use. Deploying and maintaining with Vercel is 10x easier as CI/CD is automatically handled.
+- NextJS is based on one of the most popular frontend frameworks i.e, [ReactJS](https://reactjs.org/)
+- JavaScript/TypeScript is the standard for using NextJS and creating highly performant server-side rendered web apps.
+
+### Back End
+
+- Server could be run using any language but JS or Python frameworks such as NodeJS or Django increase flexibilty and reduce development time as they have prebuilt methods and handle edges easily.
+- Image Animation Script and Audio Syncing scripts could be run independently on cloud instances from Google or Amazon. This enables  scalability.
+- Cloud Firestore NoSQL DB could be used to store metadata.
+- Amazon S3 or Google Cloud Storage for storing the media files if necessary.

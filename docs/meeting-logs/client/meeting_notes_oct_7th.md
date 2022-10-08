@@ -1,4 +1,4 @@
-# plans for next week:
+# Plans for next week:
 - decide approach we will move forward with
 - iron out requirements for chosen method
 - break down tasks and work on requirements report

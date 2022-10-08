@@ -4,6 +4,7 @@
 - Be transparent with your work progress, and ask your team members for help (at reasonable hours) if needed.
 - Be open to updating the Team Agreement Terms as the project progresses or if the team members feel that the terms are outdated/not helpful.
 - Be respectful and try to create a positive and encouraging environment. In the case of conflict, approach the Project Manager and attempt to solve them as soon as possible.
+- When uploading documents to the Github repository, format in a markdown file if possible for easier readability.
 # Meetings
 - Weekly Team Meetings will be held on Fridays at 4pm.
 - Be prepared and on time for all meetings.

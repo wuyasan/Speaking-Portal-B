@@ -7,9 +7,9 @@ Team Members:
 3. Cooper Smith
 4. Yash Atreya
 
-## **1. Software Requirements**
+## **Software Requirements**
 
-### **1.1 Functional Requirements**
+### **Functional Requirements**
 
 - Software will accept input text either by submission through a text box, or by reading a text file of supported type uploaded by the user.
 
@@ -30,13 +30,13 @@ Team Members:
 - Software will reject user input and display appropriate error messages if unsupported file types are detected.
 
 
-### **1.2 Non-Functional Requirements**
+### **Non-Functional Requirements**
 
 - **Performance** – Portable software and fast generation of animated video.
 - **Code Quality** – Code must be professionally formatted, linted and maintained.
 
 
-### **1.3 User Requirements**
+### **User Requirements**
 
 - User should be able to enter the text that they want to convert either through typing, highlighting, or by uploading a text file.
 

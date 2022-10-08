@@ -11,7 +11,7 @@
 ### nothing concrete, looked into or possible setup
 - breaking up audio file has to be done by us, nothing by Kukarella along those line has been attempted
 ### when it comes to avatars that you want, are there specific ones, do we have access to the assets for the avatars?
- ### absolutely there will be access to the avatars, they have some old models we can use or even create new ones with their animators
+### absolutely there will be access to the avatars, they have some old models we can use or even create new ones with their animators
 - no preference given to 3d or 2d, whichever is more realistic, faster, and doable.
 - Nazim will provide us with a premium Kukarella account for testing
 

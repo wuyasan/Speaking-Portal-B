@@ -1,11 +1,4 @@
-# Project Requirements
-
-Team Members:
-
-1. Sarvagya Pandey
-2. Mawanli Cui
-3. Cooper Smith
-4. Yash Atreya
+# **Project Requirements**
 
 ## **Software Requirements**
 

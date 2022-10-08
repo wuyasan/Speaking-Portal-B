@@ -55,4 +55,4 @@
 
 ## **Use-Case Diagram**
 
-![Use Case Diagram](use-case-diagram.PNG)
+![Use Case Diagram](use-case-diagram.png)

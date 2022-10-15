@@ -66,6 +66,15 @@
 
 ### **Choice of Tech Stack**
 
+- Language of choice - Python.
+
+- Most of our group members are familiar with python.
+
+- It has a lot of Natural Language Processing libraries.
+
+- Ongoing research to determine the various frameworks that will be required.
+
+
 ### **Testing Strategies**
 
 - Unit Testing every feature using PyTest.

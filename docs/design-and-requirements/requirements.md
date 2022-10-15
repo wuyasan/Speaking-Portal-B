@@ -1,6 +1,12 @@
 # **Project Requirements**
 
 ## **Project Description**
+- An add-on to Kukarella’s existing web platform to pair with the company’s text-to-speech(TTS) software.
+
+- Involves the generation of an animated video from a user-uploaded image of a person or character’s face narrating the given text.
+
+- Provides the user with an embeddable video file for download.
+
 
 ## **Target User Groups**
 

@@ -96,6 +96,7 @@ Milestone 4 (Final Product) - Incorporate feedback from Peer Testing II; Impleme
 ### **Team Questions**
 
 1. Do professional users require a login?  
+  
 A: A professional account on Kukarella will be required to use the video generation feature.
   
 2. Is the generated video going to go to a template page for viewing then deleted a certain amount of time after the generation of the page?

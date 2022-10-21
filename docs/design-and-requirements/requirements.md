@@ -101,32 +101,32 @@ Milestone 4 (Final Product) - Incorporate feedback from Peer Testing II; Impleme
 2. Is the generated video going to go to a template page for viewing then deleted a certain amount of time after the generation of the page?  
   A: The video is going to be stored in a database, but we are currently unsure of how long it will be stored for. We will clarify with the client in our future    meetings!
   
-3. Will you need help from professional artists/animators in order to create the code for animations? If yes, how do you plan on contacting such people?
+3. Will you need help from professional artists/animators in order to create the code for animations? If yes, how do you plan on contacting such people?  
   A: We will require 2D assets previously made by Kukarella’s animators. Should the need arise, we will be requesting the animators to create additional assets such as   different mouth shapes for all the phonemes, etc.
   
-4. What metrics will you use to check the accuracy of the syncing? Do you have a definition for “seamlessly flowing audio”?
+4. What metrics will you use to check the accuracy of the syncing? Do you have a definition for “seamlessly flowing audio”?  
   A: If phonemes have an 80% rate of being recognized successfully, this is within the margin of error for seamless audio. We will also make sure that the testers of     our application find the animation smooth and “in-sync” during the Usability Testing phase sometime during Term 2.
   
-5. How do you plan on implementing the download function for users? Will you use a video hosting service?
+5. How do you plan on implementing the download function for users? Will you use a video hosting service?  
   A: Generated videos will be stored in object storage on AWS or Google Compute, and we’ll expose a download URL from there. 
 
-6. What practices will you be following in order to provide professionally formatted code?
+6. What practices will you be following in order to provide professionally formatted code?  
   A: All of us use VSCode to write code, which has extremely good linters like Flake8, etc that will help us check for simple logical as well as stylistic errors..       Other than that, we will be following the practice of decorators and comments to explain the code we are writing. All code will need to be reviewed by at least 2       other team members before it is merged to the main branch of the GitHub repository. This will help ensure that the quality is acceptable by all members of the team.
 
-7. Are you concerned with Python's relatively poor performance relative to other languages?
+7. Are you concerned with Python's relatively poor performance relative to other languages?  
   A: Python has poor performance relative to Javascript only for web servers, for which we will use NodeJS. Python is better at processing video and various ML models.
 
-8. How do you plan on testing components working together?
+8. How do you plan on testing components working together?  
   A:
   
-9. How do you plan to ‘maximize efficiency’ for fast response times?
+9. How do you plan to ‘maximize efficiency’ for fast response times?  
   A: For the front-end, we will be using NextJS which has server-side rendering one of the best load times in the industry. Our web-server will be deployed using         Google Cloud functions which are almost infinitely scalable low latency endpoints. Our compute for video generation we will be using cloud compute with GPUs.
 
-10. Are you concerned about the computing speed python provides (given its not exactly known for being performant)?
+10. Are you concerned about the computing speed python provides (given its not exactly known for being performant)?  
   A: Python has poor performance relative to Javascript only for web servers, for which we will use NodeJS. Python is better at processing video and various ML models.
 
-11. What is the definition of "fast generation?" Why did you choose this timeframe?
+11. What is the definition of "fast generation?" Why did you choose this timeframe?  
   A: This is a poor choice of words. A better timeline would be time/data = gen time
 
-12. Are you animating this yourself? The presentation made it seem like you were.
-  A: We are going to get some assistance from our clients in terms of borrowing already existing 2D assets that they have on hand, but we will be animating by            ourselves.
+12. Are you animating this yourself? The presentation made it seem like you were.  
+    A: We are going to get some assistance from our clients in terms of borrowing already existing 2D assets that they have on hand, but we will be animating by            ourselves.

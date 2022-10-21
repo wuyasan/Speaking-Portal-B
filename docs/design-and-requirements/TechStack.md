@@ -1,6 +1,7 @@
 # Tech Stack
 
 This is a comprehensive document highlighting the tech stack we will be using to build this project. Our tech stack has a lot of similarities with Kukarella's stack enable smooth integration. Moreover, we we shall create API endpoints in NodeJS to interact with Python video generation scripts.
+This is a living document and will be updated as we progress.
 
 ## Front End
 ---

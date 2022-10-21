@@ -117,7 +117,7 @@ Milestone 4 (Final Product) - Incorporate feedback from Peer Testing II; Impleme
   A: Python has poor performance relative to Javascript only for web servers, for which we will use NodeJS. Python is better at processing video and various ML models.
 
 8. How do you plan on testing components working together?  
-  A:
+  A: The best way to test components working together is to use a combination of unit and integration tests. Unit tests can be used to test the basic functionality of each component in isolation. Integration tests can be used to test how different components work together to produce the desired output.
   
 9. How do you plan to ‘maximize efficiency’ for fast response times?  
   A: For the front-end, we will be using NextJS which has server-side rendering one of the best load times in the industry. Our web-server will be deployed using         Google Cloud functions which are almost infinitely scalable low latency endpoints. Our compute for video generation we will be using cloud compute with GPUs.

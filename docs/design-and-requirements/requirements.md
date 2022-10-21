@@ -95,8 +95,8 @@ Milestone 4 (Final Product) - Incorporate feedback from Peer Testing II; Impleme
 - Usability Testing: Involves target user groups' feedback on product prototypes to ensure software is working as intended and to gather their impressions on features such as satisfaction with animation quality, video generation speed, etc.
 ### **Team Questions**
 
-1. Do professional users require a login?
-  A: A professional account on Kukarella will be required to use the video generation feature.
+1. Do professional users require a login?  
+A: A professional account on Kukarella will be required to use the video generation feature.
   
 2. Is the generated video going to go to a template page for viewing then deleted a certain amount of time after the generation of the page?
   A: The video is going to be stored in a database, but we are currently unsure of how long it will be stored for. We will clarify with the client in our future    meetings!

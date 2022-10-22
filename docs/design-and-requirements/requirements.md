@@ -130,3 +130,42 @@ Milestone 4 (Final Product) - Incorporate feedback from Peer Testing II; Impleme
 
 12. Are you animating this yourself? The presentation made it seem like you were.  
     A: We are going to get some assistance from our clients in terms of borrowing already existing 2D assets that they have on hand, but we will be animating by            ourselves.
+
+13. Do you have an idea of what python libraries you’ll be using?
+    A: We will be using Gentle for phoneme generation. We plan to use ffmpeg to generate the video.
+
+14. The current Kukarella product supports a very wide range of languages and accents, will your final product also be able to support all the currently available options or will it be limited?
+    A: Our primary focus would be to ensure that most popular languages (eg. - English, French, etc.) are supported. We are hoping to eventually support all languages that Kukarella does. Support relies on forced-alignment tools that may or may not work with niche languages and mouth sounds.
+
+15. In your presentation, you mentioned that your product will have fast response times, how do you plan to ensure that? What is the criteria that defines it as “fast”?
+    A: Fast response times is a poor choice of words. A better criteria would be a certain amount of data processed per unit of time.
+
+16. It was mentioned that the user can access the generated video via a link, does the embed code/link have an expiration? Meaning, can the user access the video via the link even a year after the video was generated?
+    A: Link will have a period of expiration. This ensures resources are used efficiently.
+
+17. How do you plan to use NLP with Python for your project?
+    A: The NLP part is used for text-to-speech generation, which is handled by Kukarella.
+
+18. You guys did well by making further comments on some of the points to justify/explain the reasoning behind it.
+    A: Thanks for the feedback!
+
+19. Where will the available voice audios be obtained from?
+    A: The audio files are taken straight from Kukarella’s output from text.
+
+20. Are there any format requirements for the image to be uploaded or will all image types work?
+    A: TBD, but we’ll stick with JPG and PNG mostly.
+
+21. Could talk more efficiently as the presentation went overtime greatly.
+    A: Will keep that in mind
+
+22. The runtime assumptions felt too ambitious and I was not able to understand how they would be able to achieve it.
+
+23. Slides were beautiful and materials were explained clearly
+    A: Thanks
+
+24. You mentioned that your project would be supporting multiple languages. Which languages will be supported and will that make your workload beyond the scope?
+    A: The languages that we’ll use are Javacript for frontend and web-server, Python for video generation.
+
+25. What technology constraints are you encountering or you might encounter in the future?
+    A: Forced alignment of audio files in unsupported languages may or may not result in poor lip sync. There might be framerate-dependant TBD
+

@@ -99,7 +99,7 @@ Through the Kukarella App:
 
 ### **Data Flow Diagrams (Level 0 and 1)**
 ---
-![](DFD.png]
+![](DFD.png)
 
 ### **Milestones**
 ---

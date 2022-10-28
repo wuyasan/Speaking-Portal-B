@@ -22,6 +22,6 @@ print(json.dumps(phonemeList, indent=2))
 # just messing around from this point. feel free to delete
 words = phonemeList['words']
 for word in words:
-    print("word = " + word['alignedWord'] + "\nphonemes in word = ")
+    print("\n\nword = " + word['alignedWord'] + "\nphonemes in word = ", end='')
     for phoneInfo in word['phones']:
         print(phoneInfo['phone'] + ", ", end='')

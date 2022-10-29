@@ -1,7 +1,10 @@
 import os
 
-# Testing os module with path command
+# Testing gcloud by opening a pipe to the command line
 
-cwd = os.getcwd()
+pipe = os.popen('gcloud --version')
 
-print(cwd)
+# Printing the output of the command line
+
+print(pipe.read())
+

@@ -1,10 +1,16 @@
 import os
 
-# Testing gcloud by opening a pipe to the command line
+# Confirm logged into gcloud CLI with the correct account 
 
-pipe = os.popen('gcloud --version')
+pipe = os.popen('gcloud auth list --filter=status:ACTIVE --format="value(account)"')
 
-# Printing the output of the command line
+active_account = pipe.read().strip()
 
-print(pipe.read())
+if active_account != 'team.b.kukarella.capstone@gmail.com':
+
+    print('Please login to gcloud CLI with the correct account')
+
+    # Exits process
+    exit()
+
 

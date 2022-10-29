@@ -28,7 +28,7 @@ os.chdir(cwd)
 
 print("In dir: " + os.getcwd())
 
-# Loop through all files in the current directory and save paths to a list
+# Loop through all files in the src and save paths to a list
 
 files = []
 for file in os.listdir(os.getcwd()):
@@ -39,13 +39,14 @@ print("Files to be deployed: " + str(files))
 
 # Deploy files to GCP
 
+file_str = ' '.join(files)
+print("Deploying files: " + file_str)
+upload_file_cmd = 'gcloud compute scp "{}" {}:Speaking-Portal-B --zone={} --project={}'.format(file_str, VM_NAME, ZONE, PROJECT)
 
+# The first you run this command it will ask to generate a SSH key file
 
-# # The first you run this command it will ask to generate a SSH key file
-# pipe = os.popen('gcloud compute scp ' + cwd + ' instance-1:~ --dry-run --project=speaking-portal-b --zone=us-central1-c')
+pipe = os.popen(upload_file_cmd) # Will ask for ssh passphrase everytime it is run
 
-# dry_run_output = pipe.read()
-
-# print(dry_run_output)
+print("Files uploaded")
 
 exit()

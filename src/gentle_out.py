@@ -19,9 +19,13 @@ phonemeList = phonemeList.json()
 print(json.dumps(phonemeList, indent=2))
 
 
-# just messing around from this point. feel free to delete
+# Splits up phoneme timestamp and duration
 words = phonemeList['words']
 for word in words:
-    print("\n\nword = " + word['alignedWord'] + "\nphonemes in word = ", end='')
+    wstart = word['start']
+    print("\n\nWord start t-stamp = " + str(wstart))
+    print("word = " + word['alignedWord'] + "\nphonemes in word = \n", end='')
     for phoneInfo in word['phones']:
         print(phoneInfo['phone'] + ", ", end='')
+        wstart += phoneInfo['duration']
+        print("Duration: " + str(phoneInfo['duration']) + " Phoneme end t-stamp: " + str(round(wstart,2)))

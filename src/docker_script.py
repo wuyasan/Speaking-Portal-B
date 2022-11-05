@@ -5,28 +5,27 @@ containerList = client.containers.list(all=True)
 
 
 # finds and kills existing 'gentle' instance if running and deletes container
-def removeOldContainer(containerName):
+def remove_old_container(container_name):
     for container in containerList:
-        if container.attrs['Name'] == "/" + containerName:
+        if container.attrs['Name'] == "/" + container_name:
             if container.attrs['State']['Running'] is True:
                 container.kill()
-            if container.attrs['State']['Status'] == "exited":
-                container.remove()
+            container.remove()
 
 
 # launch container and bind default listening port to host
-def launchContainer(containerName, containerImage):
-    gentleContainer = client.containers.run(
-        image=containerImage,
-        name=containerName,
+def launch_container(container_name, container_image):
+    gentle_container = client.containers.run(
+        image=container_image,
+        name=container_name,
         ports={'8765/tcp': 8765},
         detach=True
     )
-    return gentleContainer
+    return gentle_container
 
 
 if __name__ == '__main__':
-    containerName = "gentle"
-    containerImage = "lowerquality/gentle"
-    removeOldContainer(containerName)
-    launchContainer(containerName, containerImage)
+    container_name = "gentle"
+    container_image = "lowerquality/gentle"
+    remove_old_container(container_name)
+    launch_container(container_name, container_image)

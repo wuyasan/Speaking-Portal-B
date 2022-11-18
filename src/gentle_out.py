@@ -2,7 +2,6 @@ import requests
 import os
 import json
 
-
 URL = "http://localhost:8765/transcriptions?async=false"
 audioPath = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'data', 'audio', 'test.mp3'))
 textPath = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'data', 'text', 'test.txt'))

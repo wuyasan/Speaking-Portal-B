@@ -35,3 +35,27 @@ You are a middle school biology teacher who wants to create a animated video of 
 7. Open and watch ‘Vid_final.mp4’
 
 8. Comment on the animation quality/accuracy.
+
+## **Task Scenario 2**
+
+You are a casual user who has just come across this software. You find the premise of creating an animation through a given text and audio file fascinating, and want to experiment with the software’s capabilities and accuracy of animation. You decide to choose some random text for the animation and generate the audio file with a randomly selected voice through Kukarella Text-to-Speech.
+
+**User Group Covered**: Casual Users/Enthusiasts
+
+## **Tasks**
+
+1. Open GUI.py from the ‘src’ folder in the project directory
+
+2. Run GUI.py
+
+3. Select the appropriate text file
+
+4. Select the appropriate audio file
+
+5. Generate the animated video
+
+6. Locate ‘Vid_final.mp4’ in the project directory
+
+7. Open and watch ‘Vid_final.mp4’
+
+8. Comment on the animation quality/accuracy

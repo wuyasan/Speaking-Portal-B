@@ -1,5 +1,6 @@
 import requests
 import os
+import platform
 import json
 import pathlib
 
@@ -55,7 +56,11 @@ if __name__ == '__main__':
     text_path = os.path.realpath(os.path.join(
         os.path.dirname(__file__), '..', 'data', 'text', 'test.txt'))
     local_path = pathlib.Path(__file__).parent.resolve().parent.resolve()
-    local_path = str(local_path) + "\\data\\text\\test.json"
+    sys_info = platform.system()
+    if sys_info == "Darwin":
+        local_path = str(local_path) + "/data/text/test.json"
+    else:
+        local_path = str(local_path) + "\\data\\text\\test.json"
     phoneme_list = generate_phoneme_list(URL, text_path, audio_path)
     print_phoneme_list(phoneme_list)
     save_phoneme_list(local_path)

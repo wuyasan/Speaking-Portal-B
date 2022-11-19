@@ -14,13 +14,15 @@
 
 Generate animated video using the software by uploading the appropriate text file (script) and audio file (speech).
 
-## **Task Scenario**
+## **User Group 1**
+
+### **Task Scenario**
 
 You are a middle school biology teacher who wants to create a animated video of a character explaining the concept of a Cell Wall. You want to show this video to your students so that they can learn about this concept in a fun and engaging manner. You have acquired the files containing the script and audio required to create the video already through Kukarella Text-to-Speech.
 
 **User Group Covered**: Professional Users/Companies
 
-## **Tasks**
+### **Tasks**
 
 1. Open GUI.py from the ‘src’ folder in the project directory
 
@@ -38,13 +40,15 @@ You are a middle school biology teacher who wants to create a animated video of 
 
 8. Comment on the animation quality/accuracy.
 
-## **Task Scenario 2**
+## **User Group 2**
+
+### **Task Scenario**
 
 You are a casual user who has just come across this software. You find the premise of creating an animation through a given text and audio file fascinating, and want to experiment with the software’s capabilities and accuracy of animation. You decide to choose some random text for the animation and generate the audio file with a randomly selected voice through Kukarella Text-to-Speech.
 
 **User Group Covered**: Casual Users/Enthusiasts
 
-## **Tasks**
+### **Tasks**
 
 1. Open GUI.py from the ‘src’ folder in the project directory
 

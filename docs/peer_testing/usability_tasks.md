@@ -18,6 +18,8 @@ Generate animated video using the software by uploading the appropriate text fil
 
 You are a middle school biology teacher who wants to create a animated video of a character explaining the concept of a Cell Wall. You want to show this video to your students so that they can learn about this concept in a fun and engaging manner. You have acquired the files containing the script and audio required to create the video already through Kukarella Text-to-Speech.
 
+**User Group Covered**: Professional Users/Companies
+
 ## **Tasks**
 
 1. Open GUI.py from the ‘src’ folder in the project directory

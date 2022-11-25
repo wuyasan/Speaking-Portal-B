@@ -3,3 +3,4 @@
 ### Things to do 
 - Get an idea of what frames we need for animation and provide that to client animator
 - Work on and implement GUI for peer testing
+- considering bi-weekly meetings as we seem to skip a lot

@@ -1,5 +1,6 @@
 from flask import Flask, request, send_from_directory
 import os
+import requests
 app = Flask(__name__)
 
 app.config["SERVER_FILES"] = os.getcwd() + "/server_files"
@@ -24,14 +25,26 @@ def text_to_speech():
         return send_from_directory(app.config["SERVER_FILES"], "test.mp3", as_attachment=True)
     except Exception as e:
         return 'Error: {}'.format(e), 500
-    
 
-    
-    
-
-@app.route('/gentle-output', methods=['POST'])
+@app.route('/gentle-output', methods=['PUT'])
 def gentle_output():
-    return 'This will return the gentle output'
+
+    default_files = False
+    try:
+        if(len(request.files) != 2 or 'text_file' not in request.files or 'audio_file' not in request.files):
+            print("Text file not received, using default text file")
+            text_file = open(app.config["SERVER_FILES"] + "/test.txt", "r")
+            print("Audio file not received, using default audio file")
+            audio_file = open(app.config["SERVER_FILES"] + "/test.mp3", "rb")
+            default_files = True
+        else:
+            text_file = request.files['text_file']
+            audio_file = request.files['audio_file']
+
+        # TODO: Make gentle request
+        return 'OK', 200
+    except Exception as e:
+        return 'FileNotReceived: {}'.format(e), 400
 
 @app.route('/generate-video', methods=['GET'])
 def video_processing():

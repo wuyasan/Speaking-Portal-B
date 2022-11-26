@@ -52,16 +52,15 @@ def browseAudioFile():
     label.configure(text="Audio File Loaded!")
 
 def run():
-    print(textPath + " " + audioPath)
     if __name__ == '__main__':
         URL = "http://localhost:8765/transcriptions?async=false"
         phoneme_list = generate_phoneme_list(URL, textPath, audioPath)
         save_phoneme_list(local_path, phoneme_list)
         generate_video(audioPath, textPath)
-        exit
+        label.configure(text="Video Generated Successfully! You May Exit Now")
 
 label = Label(root, text="", font=("Courier 10 bold"))
-heading = Label(root, text="Speaking Portal - Video Generator", font=("Courier 16"), bg="white", width=65, height=5)
+heading = Label(root, text="Speaking Portal - Video Generator", font=("Courier 16 bold"), bg="white", width=65, height=5)
 
 b_t = Button(root, text="select text file", width=30, height=2, command=browseTxtFile)
 b_a = Button(root, text="select audio file", width=30, height=2, command=browseAudioFile)

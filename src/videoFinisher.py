@@ -38,6 +38,5 @@ def generate_video(audioPath, textPath):
     command = "ffmpeg -r 30 -f image2 -s 1920x1080 -i "+str(localpath)+"/generatedVideo/ev_frames/f%06d.png -i "+str(
         audioPath) + " -vcodec libx264 -b 4M -c:a aac -strict -2 -pix_fmt yuv420p "+str(localpath)+"/Vid_final.mp4 -y"
     subprocess.call(command, shell=True)
-
-    if KEEP_FRAMES == "F":
-        emptyFolder(INPUT_FILE+"_frames")
+    emptyFolder(str(localpath)+"/generatedVideo/ev_frames")
+    return

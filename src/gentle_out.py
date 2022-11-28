@@ -27,7 +27,8 @@ def print_phoneme_list(phoneme_list):
     print(json.dumps(phoneme_list, indent=2))
 
 
-def save_phoneme_list(local_path):
+def save_phoneme_list(local_path, phoneme_list):
+    phoneme_list = phoneme_list.json()
     try:
         with open(local_path, "w") as outfile:
             json.dump(phoneme_list, outfile)
@@ -63,5 +64,5 @@ if __name__ == '__main__':
         local_path = str(local_path) + "\\data\\text\\test.json"
     phoneme_list = generate_phoneme_list(URL, text_path, audio_path)
     print_phoneme_list(phoneme_list)
-    save_phoneme_list(local_path)
-    print_phoneme_sequence(phoneme_list)
+    save_phoneme_list(local_path, phoneme_list)
+    #print_phoneme_sequence(phoneme_list)

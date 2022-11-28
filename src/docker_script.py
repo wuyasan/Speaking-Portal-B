@@ -10,8 +10,7 @@ def removeOldContainer(containerName):
         if container.attrs['Name'] == "/" + containerName:
             if container.attrs['State']['Running'] is True:
                 container.kill()
-            if container.attrs['State']['Status'] == "exited":
-                container.remove()
+            container.remove()
 
 
 # launch container and bind default listening port to host

@@ -1,5 +1,5 @@
 import argparse
-import os.path
+import os
 import json
 import numpy as np
 import random
@@ -7,6 +7,7 @@ from PIL import Image, ImageDraw
 import pathlib
 #from utils import getFilenameOfLine
 import math
+import platform
 
 import shutil
 
@@ -24,7 +25,12 @@ SCRIBBLE_H = 1000
 
 MAX_JIGGLE_TIME = 7
 BACKGROUND_COUNT = 5
+sys_info = platform.system()
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve()
+if sys_info == "Darwin":
+    local_path = str(localpath) + "/data/text/test.json"
+else:
+    local_path = str(localpath) + "\\data\\text\\test.json"
 
 
 def getJiggle(x, fader, multiplier):
@@ -41,7 +47,7 @@ def drawFrame(frameNum, paragraph, emotion, imageNum, pose, phoneNum, poseTimeSi
     if paragraph == CACHES[0][0]:
         frame = CACHES[0][1]
     else:
-        frame = Image.open("backgrounds/bga"+str(paragraph %
+        frame = Image.open(str(localpath) + "/backgrounds/bga"+str(paragraph %
                            BACKGROUND_COUNT)+".png")
         CACHES[0] = [paragraph, frame]
     # Makes the entire background image move 50% closer to white. In other words, it's paler.
@@ -97,12 +103,12 @@ def drawFrame(frameNum, paragraph, emotion, imageNum, pose, phoneNum, poseTimeSi
 
     poseIndex = emotion*5+pose
     poseIndexBlinker = poseIndex*3+blinker
-    body = Image.open("poses/pose"+"{:04d}".format(poseIndexBlinker+1)+".png")
+    body = Image.open(str(localpath) + "/poses/pose"+"{:04d}".format(poseIndexBlinker+1)+".png")
 
     mouthImageNum = phoneNum+1
     if EMOTION_POSITIVITY[emotion] == 0:
         mouthImageNum += 11
-    mouth = Image.open("mouths/mouth"+"{:04d}".format(mouthImageNum)+".png")
+    mouth = Image.open(str(localpath) + "/mouths/mouth"+"{:04d}".format(mouthImageNum)+".png")
 
     if MOUTH_COOR[poseIndex, 2] < 0:
         mouth = mouth.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
@@ -134,16 +140,16 @@ def drawFrame(frameNum, paragraph, emotion, imageNum, pose, phoneNum, poseTimeSi
     if FLIPPED:
         body = body.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
     frame.paste(body, (inx-s_X, iny), body)
-    if not os.path.isdir(str(localpath)+"/exampleVideo/ev_frames"):
-        os.makedirs(str(localpath)+"/exampleVideo/ev_frames")
-    frame.save(str(localpath)+"/exampleVideo/ev_frames/f" +
+    if not os.path.isdir(str(localpath)+"/generatedVideo/ev_frames"):
+        os.makedirs(str(localpath)+"/generatedVideo/ev_frames")
+    frame.save(str(localpath)+"/generatedVideo/ev_frames/f" +
                "{:06d}".format(frameNum)+".png")
 
 
 def duplicateFrame(prevFrame, thisFrame):
-    prevFrameFile = str(localpath)+"/exampleVideo/ev_frames/f" + \
+    prevFrameFile = str(localpath)+"/generatedVideo/ev_frames/f" + \
         "{:06d}".format(prevFrame)+".png"
-    thisFrameFile = str(localpath)+"/exampleVideo/ev_frames/f" + \
+    thisFrameFile = str(localpath)+"/generatedVideo/ev_frames/f" + \
         "{:06d}".format(thisFrame)+".png"
     shutil.copyfile(prevFrameFile, thisFrameFile)
 
@@ -279,9 +285,9 @@ phonemesPerFrame = np.zeros(FRAME_COUNT, dtype='int32')
 for i in range(len(phonemeTimeline)-1):
     setPhoneme(i)
 
-f = open(str(localpath)+"\\data\\text\\test.txt", "r+")
-origScript = f.read().split("\n")
-f.close()
+# f = open(str(localpath)+"\\data\\text\\test.txt", "r+")
+# origScript = f.read().split("\n")
+# f.close()
 # while "" in origStr:
 #    origStr.remove("")
 

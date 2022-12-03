@@ -1,1 +1,1 @@
-All forms of documentation, meeting logs and reports should be placed in this folder.
+All forms of documentation, meeting logs and reports should be placed into this folder.

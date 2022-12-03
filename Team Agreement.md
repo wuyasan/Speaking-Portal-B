@@ -10,7 +10,7 @@
 - Weekly Client Meetings will be held on Fridays at 4pm.
 - Be prepared and on time for all meetings.
 - If you are not able to attend any of the meetings, inform the group members through Discord as soon as possible.
-- The Client Liaison will take notes during all meetings and email them to the team within the day.
+- The Client Liaison will take notes during all meetings and upload them to Github within the day.
 # From Slides
 - The entire team must come to a unanimous decision to make any future changes
 - If behind schedule, remove lowest priority work items first

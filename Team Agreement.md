@@ -8,7 +8,7 @@
 - Please try to attend all lectures. If you cannot attend for any reason, inform your teammates prior to the lecture.
 # Meetings
 - Weekly Client Meetings will be held on Fridays at 4pm.
-- Be prepared and on time for all meetings.
+- Although not mandatory for everyone, be prepared and on time for all meetings.
 - If you are not able to attend any of the meetings, inform the group members through Discord as soon as possible.
 - The Client Liaison will take notes during all meetings and upload them to Github within the day.
 # From Slides

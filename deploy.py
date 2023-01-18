@@ -74,9 +74,9 @@ for root, dirs, files in os.walk(cwd + '/data'):
 print("\n")
 # Parse Src Directory
 srcFiles = []
-
+exclude = ['__pycache__']
 for root, dirs, files in os.walk(cwd + '/src'):
-    print("SRC FILES: ")
+    dirs[:] = [d for d in dirs if d not in exclude]
     for name in files:
         srcFiles.append(os.path.join(root, name))
 
@@ -85,7 +85,6 @@ print("\n")
 apiFiles = []
 
 for root, dirs, files in os.walk(cwd + '/api'):
-    print("API FILES: ")
     for name in files:
         apiFiles.append(os.path.join(root, name))
 

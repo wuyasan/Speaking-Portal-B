@@ -36,7 +36,7 @@ def browseTxtFile():
     textPath = filedialog.askopenfilename(initialdir=localpath,
                                           title="Select a File",
                                           filetypes=(("Text files",
-                                                      "*.txt*"),
+                                                      "*.txt*, *.txt"),
                                                      ("All files",
                                                       "*.*")))
     label.configure(text="Text File Loaded!")
@@ -46,7 +46,7 @@ def browseAudioFile():
     audioPath = filedialog.askopenfilename(initialdir=localpath,
                                           title="Select a File",
                                           filetypes=(("Audio Files",
-                                                      "*.mp3*, *.wav*"),
+                                                      "*.mp3*, *.wav*, *.mp3, *.wav"),
                                                      ("All files",
                                                       "*.*")))
     label.configure(text="Audio File Loaded!")

@@ -108,7 +108,7 @@ def drawFrame(frameNum, paragraph, emotion, imageNum, pose, phoneNum, poseTimeSi
     mouthImageNum = phoneNum+1
     if EMOTION_POSITIVITY[emotion] == 0:
         mouthImageNum += 11
-    mouth = Image.open(str(localpath) + "/new_mouths/mouth"+"{:04d}".format(mouthImageNum)+".png")
+    mouth = Image.open(str(localpath) + "/mouths/mouth"+"{:04d}".format(mouthImageNum)+".png")
 
     if MOUTH_COOR[poseIndex, 2] < 0:
         mouth = mouth.transpose(Image.Transpose.FLIP_LEFT_RIGHT)

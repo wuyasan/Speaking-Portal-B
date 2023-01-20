@@ -108,7 +108,7 @@ def drawFrame(frameNum, paragraph, emotion, imageNum, pose, phoneNum, poseTimeSi
     mouthImageNum = phoneNum+1
     if EMOTION_POSITIVITY[emotion] == 0:
         mouthImageNum += 11
-    mouth = Image.open(str(localpath) + "/mouths/mouth"+"{:04d}".format(mouthImageNum)+".png")
+    mouth = Image.open(str(localpath) + "/new_mouths/mouth"+"{:04d}".format(mouthImageNum)+".png")
 
     if MOUTH_COOR[poseIndex, 2] < 0:
         mouth = mouth.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
@@ -255,7 +255,11 @@ USE_BILLBOARDS = (args.use_billboards == "T")
 ENABLE_JIGGLING = (args.jiggly_transitions == "T")
 ENABLE_FRAME_CACHING = (args.frame_caching != "F")
 
-f = open(str(localpath) + "\\data\\text\\test_schedule.csv", "r+")
+
+if sys_info == "Darwin":
+    f = open(str(localpath) + "/data/text/test_schedule.csv", "r+")
+else:
+    f = open(str(localpath) + "\\data\\text\\test_schedule.csv", "r+")
 scheduleLines = f.read().split("\nSECTION\n")
 f.close()
 
@@ -292,7 +296,10 @@ for i in range(len(phonemeTimeline)-1):
 #    origStr.remove("")
 
 
-f = open(str(localpath)+"\\src\\mouthCoordinates.csv", "r+")
+if sys_info == "Darwin":
+    f = open(str(localpath) + "/src/mouthCoordinates.csv", "r+")
+else:
+    f = open(str(localpath)+"\\src\\mouthCoordinates.csv", "r+")
 mouthCoordinatesStr = f.read().split("\n")
 f.close()
 MOUTH_COOR = np.zeros((POSE_COUNT, 5))

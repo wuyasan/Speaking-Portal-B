@@ -28,34 +28,26 @@ cwd = os.getcwd()
 
 # Parse Root Directory
 rootFiles = []
-exclude = ['.git', 'docs', 'api', 'mouths', 'backgrounds', 'poses', 'data', 'src']
+exclude = ['.git', 'docs', 'api', 'mouths', 'backgrounds', 'poses', 'data', 'src', 'new_mouths', 'Team Agreement.md', 'README.md']
 for root, dirs, files in os.walk(cwd):
     dirs[:] = [d for d in dirs if d not in exclude]
     for name in files:
         rootFiles.append(os.path.join(root, name))
 
-print("\n")
-    # for name in dirs:
-    #     print("DIRS: " + os.path.join(root, name))
 
-exclude = ['.git']
+
 # Parse Mouths Directory
 mouthFiles = []
-
 for root, dirs, files in os.walk(cwd + '/mouths'):
     for name in files:
-        print(name)
         mouthFiles.append(os.path.join(root, name))
 
-print("\n")
 # Parse Backgrounds Directory
 backgroundFiles = []
-
 for root, dirs, files in os.walk(cwd + '/backgrounds'):
     for name in files:
         backgroundFiles.append(os.path.join(root, name))
 
-print("\n")
 # Parse Poses Directory
 poseFiles = []
 
@@ -63,7 +55,6 @@ for root, dirs, files in os.walk(cwd + '/poses'):
     for name in files:
         poseFiles.append(os.path.join(root, name))
 
-print("\n")
 # Parse Data Directory
 dataFiles = []
 
@@ -71,7 +62,6 @@ for root, dirs, files in os.walk(cwd + '/data'):
     for name in files:
         dataFiles.append(os.path.join(root, name))
 
-print("\n")
 # Parse Src Directory
 srcFiles = []
 exclude = ['__pycache__']
@@ -80,7 +70,6 @@ for root, dirs, files in os.walk(cwd + '/src'):
     for name in files:
         srcFiles.append(os.path.join(root, name))
 
-print("\n")
 # Parse api Directory
 apiFiles = []
 
@@ -88,27 +77,26 @@ for root, dirs, files in os.walk(cwd + '/api'):
     for name in files:
         apiFiles.append(os.path.join(root, name))
 
+# Parse new_mouths Directory
+
 # Loop through all files in the src and save paths to a list
 
-# files = []
-# for file in os.listdir(os.getcwd()):
-#     # if file.endswith(".py"):
-#     files.append(os.path.join(os.getcwd(), file))
+files = rootFiles + srcFiles + apiFiles + dataFiles + poseFiles + mouthFiles
 
 # print("Files to be deployed: ")
 
-# for file in rootFiles:
-#     print(file)
-# # Deploy files to GCP
+for file in rootFiles:
+    print(file)
+# Deploy files to GCP
 
-file_str = ' '.join(files)
+file_str = ' '.join(rootFiles)
 # print("Deploying files: " + file_str)
-# upload_file_cmd = 'gcloud compute scp "{}" {}:Speaking-Portal-B --zone={} --project={}'.format(file_str, VM_NAME, ZONE, PROJECT)
+upload_file_cmd = 'gcloud compute scp {} {}:Speaking-Portal-B --zone={} --project={} --ssh-key-file=/Users/yash/.ssh/google_compute_engine'.format(file_str, VM_NAME, ZONE, PROJECT)
 
-# The first you run this command it will ask to generate a SSH key file
-
+# The first time you run this command it will ask to generate a SSH key file
+print("Cmd: " + upload_file_cmd)
 # pipe = os.popen(upload_file_cmd) # Will ask for ssh passphrase everytime it is run
 
-print("Files uploaded")
+# print("Files uploaded")
 
 exit()

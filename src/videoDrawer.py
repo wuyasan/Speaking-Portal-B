@@ -27,6 +27,7 @@ MAX_JIGGLE_TIME = 7
 BACKGROUND_COUNT = 5
 sys_info = platform.system()
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve()
+print("localpath in videoDrawer.py: ", localpath)
 if sys_info == "Darwin":
     local_path = str(localpath) + "/data/text/test.json"
 else:
@@ -260,6 +261,7 @@ if sys_info == "Darwin":
     f = open(str(localpath) + "/data/text/test_schedule.csv", "r+")
 else:
     f = open(str(localpath) + "\\data\\text\\test_schedule.csv", "r+")
+
 scheduleLines = f.read().split("\nSECTION\n")
 f.close()
 

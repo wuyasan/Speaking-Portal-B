@@ -28,13 +28,18 @@ local_path = pathlib.Path(__file__).parent.resolve().parent.resolve()
 sys_info = platform.system()
 if sys_info == "Darwin":
     local_path = str(local_path) + "/data/text/test.json"
+    textFileTypes = (("Text files", "*.txt"), ("All files", "*.*"))
+    audioFileTypes = (("Audio Files", "*.mp3, *.wav"), ("All files", "*.*"))
 else:
     local_path = str(local_path) + "\\data\\text\\test.json"
+    textFileTypes = (("Text files", "*.txt*"), ("All files", "*.*"))
+    audioFileTypes = (("Audio Files", "*.mp3*, *.wav*"), ("All files", "*.*"))
+    
 
 def browseTxtFile():
     global textPath
     textPath = filedialog.askopenfilename(initialdir=localpath,
-                                          title="Select a File",
+                                          title="Select Text File",
                                           filetypes=(("Text files",
                                                       "*.txt*, *.txt"),
                                                      ("All files",
@@ -44,12 +49,13 @@ def browseTxtFile():
 def browseAudioFile():
     global audioPath
     audioPath = filedialog.askopenfilename(initialdir=localpath,
-                                          title="Select a File",
+                                          title="Select Audio File",
                                           filetypes=(("Audio Files",
                                                       "*.mp3*, *.wav*, *.mp3, *.wav"),
                                                      ("All files",
                                                       "*.*")))
     label.configure(text="Audio File Loaded!")
+    print(audioPath)
 
 def run():
     if __name__ == '__main__':

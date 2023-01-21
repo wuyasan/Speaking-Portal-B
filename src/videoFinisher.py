@@ -5,7 +5,7 @@ import subprocess
 import pathlib
 from scheduler import frame_schedule
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve()
-
+print("VideoFinisher.py localpath: "+str(localpath))
 
 def emptyFolder(folder):
     for filename in os.listdir(folder):

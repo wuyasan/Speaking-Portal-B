@@ -6,7 +6,7 @@ import random
 import pathlib
 
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve()
-
+print("Scheduler.py localpath: "+str(localpath))
 
 def addPhoneme(p, t):
     global prevPhoneme
@@ -30,6 +30,7 @@ def pickNewPose(t):
     prevPhoneme = "na"
 
 def frame_schedule(textPath):
+    print("TextPath in frame_schedule: "+str(textPath))
     global strings
     global pose
     global prevPose
@@ -73,6 +74,7 @@ def frame_schedule(textPath):
     parser.add_argument('--input_file', type=str,  help='the script')
     args = parser.parse_args()
     INPUT_FILE = args.input_file
+    print("INPUT_FILE in frame_schedule: "+str(INPUT_FILE))
 
     f = open(textPath, "r+")
     originalScript = f.read()
@@ -167,6 +169,7 @@ def frame_schedule(textPath):
                 addPhoneme(truePhone, timeAt-phone["duration"])
         OS_IndexAt = OS_nextIndex
 
+    print("Writing schedule to file "+str(localpath)+"/data/text/schedule.txt")
     f = open(str(localpath)+"/data/text/test_schedule.csv", "w+")
     for i in range(len(strings)):
         f.write(strings[i])

@@ -27,6 +27,7 @@ MAX_JIGGLE_TIME = 7
 BACKGROUND_COUNT = 5
 sys_info = platform.system()
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve()
+print("localpath in videoDrawer.py: ", localpath)
 if sys_info == "Darwin":
     local_path = str(localpath) + "/data/text/test.json"
 else:
@@ -255,7 +256,11 @@ USE_BILLBOARDS = (args.use_billboards == "T")
 ENABLE_JIGGLING = (args.jiggly_transitions == "T")
 ENABLE_FRAME_CACHING = (args.frame_caching != "F")
 
-f = open(str(localpath) + "\\data\\text\\test_schedule.csv", "r+")
+if sys_info == "Darwin":
+    f = open(str(localpath) + "/data/text/test_schedule.csv", "r+")
+else:
+    f = open(str(localpath) + "\\data\\text\\test_schedule.csv", "r+")
+
 scheduleLines = f.read().split("\nSECTION\n")
 f.close()
 
@@ -291,8 +296,10 @@ for i in range(len(phonemeTimeline)-1):
 # while "" in origStr:
 #    origStr.remove("")
 
-
-f = open(str(localpath)+"\\src\\mouthCoordinates.csv", "r+")
+if sys_info == "Darwin":
+    f = open(str(localpath) + "/src/mouthCoordinates.csv", "r+")
+else:
+    f = open(str(localpath)+"\\src\\mouthCoordinates.csv", "r+")
 mouthCoordinatesStr = f.read().split("\n")
 f.close()
 MOUTH_COOR = np.zeros((POSE_COUNT, 5))

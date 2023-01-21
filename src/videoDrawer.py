@@ -256,6 +256,7 @@ USE_BILLBOARDS = (args.use_billboards == "T")
 ENABLE_JIGGLING = (args.jiggly_transitions == "T")
 ENABLE_FRAME_CACHING = (args.frame_caching != "F")
 
+
 if sys_info == "Darwin":
     f = open(str(localpath) + "/data/text/test_schedule.csv", "r+")
 else:
@@ -295,6 +296,7 @@ for i in range(len(phonemeTimeline)-1):
 # f.close()
 # while "" in origStr:
 #    origStr.remove("")
+
 
 if sys_info == "Darwin":
     f = open(str(localpath) + "/src/mouthCoordinates.csv", "r+")

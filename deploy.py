@@ -4,6 +4,8 @@ import os
 
 GCLOUD_ACCOUNT = 'team.b.kukarella.capstone@gmail.com'
 VM_NAME = 'instance-1'
+USERNAME = 'yash'
+EX_IP = '34.27.118.140'
 ZONE = 'us-central1-c'
 PROJECT = 'speaking-portal-b'
 
@@ -20,15 +22,13 @@ if active_account != GCLOUD_ACCOUNT:
     # Exits process
     exit()
 
-# Dry Run
-
 cwd = os.getcwd()
 
 # Parse all files
 
 # Parse Root Directory
 rootFiles = []
-exclude = ['.git', 'docs', 'api', 'mouths', 'backgrounds', 'poses', 'data', 'src', 'new_mouths', 'Team Agreement.md', 'README.md']
+exclude = ['.git', 'docs', 'api', 'mouths', 'backgrounds', 'poses', 'data', 'src', 'new_mouths', 'Team-Agreement.md', 'README.md']
 for root, dirs, files in os.walk(cwd):
     dirs[:] = [d for d in dirs if d not in exclude]
     for name in files:
@@ -77,26 +77,54 @@ for root, dirs, files in os.walk(cwd + '/api'):
     for name in files:
         apiFiles.append(os.path.join(root, name))
 
-# Parse new_mouths Directory
 
-# Loop through all files in the src and save paths to a list
+# Upload root files
+files_str = ' '.join(rootFiles)
+print("Deploying Root files: " + files_str)
+cmd = 'scp -i /Users/yash/.ssh/google_compute_engine {} {}@{}:~/Speaking-Portal-B'.format(files_str, USERNAME, EX_IP)
+pipe = os.popen(cmd)
+pipe.close()
 
-files = rootFiles + srcFiles + apiFiles + dataFiles + poseFiles + mouthFiles
+# Upload mouths files
+files_str = ' '.join(mouthFiles)
+print("Deploying Mouths files: " + files_str)
+cmd = 'scp -i /Users/yash/.ssh/google_compute_engine {} {}@{}:~/Speaking-Portal-B/mouths'.format(files_str, USERNAME, EX_IP)
+pipe = os.popen(cmd)
+pipe.close()
 
-# print("Files to be deployed: ")
+# Upload backgrounds files
+files_str = ' '.join(backgroundFiles)
+print("Deploying Backgrounds files: " + files_str)
+cmd = 'scp -i /Users/yash/.ssh/google_compute_engine {} {}@{}:~/Speaking-Portal-B/backgrounds'.format(files_str, USERNAME, EX_IP)
+pipe = os.popen(cmd)
+pipe.close()
 
-for file in rootFiles:
-    print(file)
-# Deploy files to GCP
+# Upload poses files
+files_str = ' '.join(poseFiles)
+print("Deploying Poses files: " + files_str)
+cmd = 'scp -i /Users/yash/.ssh/google_compute_engine {} {}@{}:~/Speaking-Portal-B/poses'.format(files_str, USERNAME, EX_IP)
+pipe = os.popen(cmd)
+pipe.close()
 
-file_str = ' '.join(rootFiles)
-# print("Deploying files: " + file_str)
-upload_file_cmd = 'gcloud compute scp {} {}:Speaking-Portal-B --zone={} --project={} --ssh-key-file=/Users/yash/.ssh/google_compute_engine'.format(file_str, VM_NAME, ZONE, PROJECT)
+# Upload src files
+files_str = ' '.join(srcFiles)
+print("Deploying Src files: " + files_str)
+cmd = 'scp -i /Users/yash/.ssh/google_compute_engine {} {}@{}:~/Speaking-Portal-B/src'.format(files_str, USERNAME, EX_IP)
+pipe = os.popen(cmd)
+pipe.close()
 
-# The first time you run this command it will ask to generate a SSH key file
-print("Cmd: " + upload_file_cmd)
-# pipe = os.popen(upload_file_cmd) # Will ask for ssh passphrase everytime it is run
+# Upload api files
+files_str = ' '.join(apiFiles)
+print("Deploying Api files: " + files_str)
+cmd = 'scp -i /Users/yash/.ssh/google_compute_engine {} {}@{}:~/Speaking-Portal-B/api'.format(files_str, USERNAME, EX_IP)
+pipe = os.popen(cmd)
+pipe.close()
 
-# print("Files uploaded")
+# Upload data files
+files_str = ' '.join(dataFiles)
+print("Deploying Data files: " + files_str)
+cmd = 'scp -i /Users/yash/.ssh/google_compute_engine {} {}@{}:~/Speaking-Portal-B/data'.format(files_str, USERNAME, EX_IP)
+pipe = os.popen(cmd)
+pipe.close()
 
 exit()

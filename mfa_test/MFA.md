@@ -24,3 +24,12 @@ conda create -n aligner montreal-forced-aligner
 
 ```
 
+---
+
+## Project Specific Concerns
+
+- MFA is a command line tool and has a lot of different [input file configs](https://montreal-forced-aligner.readthedocs.io/en/latest/user_guide/corpus_structure.html#corpus-structure).
+
+- MFA is not a drop-in replacement for gentle. We will have to write a local server script to interact with it for our project.
+
+- Moreover, the JSON output of MFA, as seen [here](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner/issues/453),  is not same as the JSON output of gentle. This will lead to breaking changes in the codebase. We will have too modify the video processing code accordingly.

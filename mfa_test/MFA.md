@@ -33,3 +33,11 @@ conda create -n aligner montreal-forced-aligner
 - MFA is not a drop-in replacement for gentle. We will have to write a local server script to interact with it for our project.
 
 - Moreover, the JSON output of MFA, as seen [here](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner/issues/453),  is not same as the JSON output of gentle. This will lead to breaking changes in the codebase. We will have too modify the video processing code accordingly.
+
+## Trial Findings
+
+- The test can be found in the ```mfa_test``` folder with the names, ```inputs``` and ```japanese```.
+
+- Upon first running the ```mfa validate``` on our data previouly used with leads to an issue, with ```.wav``` format of the audio file. We have posted the issue on the [MFA github](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner/issues/543).
+
+- ```mfa validate``` commmand runs successfully on the ```japanese``` data. However, ```align``` command fails. We are still investigating the issue.

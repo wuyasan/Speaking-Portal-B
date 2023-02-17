@@ -35,7 +35,7 @@ for word_info in mfa_words:
         'alignedWord': mfa_word,
         'start': mfa_word_start,
         'end': mfa_word_end,
-        'word': mfa_word,
+        'word': mfa_word.upper(),
         'phones': []
     }
     # Get phones from mfa for each word
@@ -98,6 +98,20 @@ for word_info in mfa_words:
     print("Phones for word ", mfa_word, " : ", phones_for_word)
     gentle_word_set['phones'] = phones_for_word
     words.append(gentle_word_set)
+
+
+for word_set in words:
+    # TODO: Add case key to phones
+    word_set['case'] = 'success'
+
+    for phone in word_set['phones']:
+    # TODO: Fix duration decimals
+        phone['duration'] = round(phone['duration'], 5)
+    # TODO: Remove mfa_index from phones
+        phone.pop('mfa_index', None)
+
+for word_set in words:
+    print(word_set)
 
 dict = {
     'transcript': "this is a test",

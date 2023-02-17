@@ -61,6 +61,8 @@ def run():
     if __name__ == '__main__':
         URL = "http://localhost:8765/transcriptions?async=false"
         phoneme_list = generate_phoneme_list(URL, textPath, audioPath)
+        #os.system("mfa align " + str(localpath) + "/data/mfadata" + " english_us_arpa english_us_arpa " + str(localpath) + "/data/text --output_format json --clean")
+        os.system("python mfa2gentle.py")
         save_phoneme_list(local_path, phoneme_list)
         generate_video(audioPath, textPath)
         label.configure(text="Video Generated Successfully! You May Exit Now")

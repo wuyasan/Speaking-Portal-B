@@ -1,8 +1,5 @@
 import json
 
-# Load data from gentle_out.json and mfa_out.json
-with open('gentle_out.json') as f:
-    gentle_data = json.load(f)
 with open('mfa_out.json') as f:
     mfa_data = json.load(f)
 
@@ -10,19 +7,6 @@ with open('mfa_out.json') as f:
 # MFA phones and words
 mfa_phones = mfa_data['tiers']['phones']['entries']
 mfa_words = mfa_data['tiers']['words']['entries']
-
-# Num of words in gentle and mfa
-gentle_num_words = len(gentle_data['words'])
-mfa_num_words = len(mfa_words)
-
-
-
-# Check if the number of words are the same
-if gentle_num_words == mfa_num_words:
-    print('The number of words are the same', gentle_num_words, '==',  mfa_num_words)
-else:
-    print('The number of words are different', gentle_num_words, '!=',  mfa_num_words)
-    exit(1)
 
 # Get word from mfa
 words = [] # Maps to phones in gentle_out.json for a particular word. Eg. Array will contain all phones for word "this".
@@ -35,7 +19,7 @@ for word_info in mfa_words:
         'alignedWord': mfa_word,
         'start': mfa_word_start,
         'end': mfa_word_end,
-        'word': mfa_word,
+        'word': mfa_word.upper(),
         'phones': []
     }
     # Get phones from mfa for each word
@@ -98,6 +82,20 @@ for word_info in mfa_words:
     print("Phones for word ", mfa_word, " : ", phones_for_word)
     gentle_word_set['phones'] = phones_for_word
     words.append(gentle_word_set)
+
+
+for word_set in words:
+    # TODO: Add case key to phones
+    word_set['case'] = 'success'
+
+    for phone in word_set['phones']:
+    # TODO: Fix duration decimals
+        phone['duration'] = round(phone['duration'], 5)
+    # TODO: Remove mfa_index from phones
+        phone.pop('mfa_index', None)
+
+for word_set in words:
+    print(word_set)
 
 dict = {
     'transcript': "this is a test",

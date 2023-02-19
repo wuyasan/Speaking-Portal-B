@@ -1,4 +1,5 @@
 import argparse
+from os import path
 import os.path
 import json
 import numpy as np
@@ -80,7 +81,14 @@ def frame_schedule(textPath):
     originalScript = f.read()
     f.close()
 
-    f = open(str(localpath)+"/data/text/test.json", "r+")
+    #if(path.exists(str(localpath)+"/data/text/mfa2gentle.json")): 
+        #print("MFA")   #if MFA is detected use MFA json
+        #f = open(str(localpath)+"/data/text/mfa2gentle.json", "r+")
+        #fileData = f.read()
+        #f.close()
+    #else:
+       # print("Gentle")                                             #if no MFA use gentle json
+    f = open(str(localpath)+"/data/text/mfa2gentle.json", "r+")
     fileData = f.read()
     f.close()
 

@@ -13,6 +13,10 @@ from gentle_out import *
 from videoFinisher import *
 
 
+# CONSTANTS
+
+API_SERVER = 'http://localhost:5000'
+
 # create root window
 root = Tk()
 # root window title and dimension
@@ -60,6 +64,10 @@ def browseAudioFile():
 def run():
     if __name__ == '__main__':
         URL = "http://localhost:8765/transcriptions?async=false"
+        # requests.put(API_SERVER + '/generate', files={
+        #     'text_file': open(textPath, 'rb'),
+        #     'audio_file': open(audioPath, 'rb')
+        # })
         phoneme_list = generate_phoneme_list(URL, textPath, audioPath)
         #os.system("mfa align " + str(localpath) + "/data/mfadata" + " english_us_arpa english_us_arpa " + str(localpath) + "/data/text --output_format json --clean")
         os.system("python mfa2gentle.py")

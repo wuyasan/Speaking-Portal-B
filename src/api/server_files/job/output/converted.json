@@ -1,11 +1,10 @@
 {
-    "transcript": "THIS LITTLE WORK WAS FINISHED IN THE YEAR EIGHTEEN O THREE AND INTENDED FOR IMMEDIATE PUBLICATION IT WAS DISPOSED OF TO A BOOKSELLER IT WAS EVEN ADVERTISED ",
+    "transcript": "THIS LITTLE WORK WAS FINISHED IN THE YEAR EIGHTEEN O THREE AND INTENDED FOR IMMEDIATE PUBLICATION IT WAS DISPOSED OF TO A BOOKSELLER IT WAS EVEN ADVERTISED",
     "words": [
         {
             "alignedWord": "this",
             "start": 0.56,
             "end": 0.83,
-            "word": "THIS",
             "phones": [
                 {
                     "phone": "DH",
@@ -20,13 +19,13 @@
                     "duration": 0.16
                 }
             ],
+            "word": "THIS",
             "case": "success"
         },
         {
             "alignedWord": "little",
             "start": 0.83,
-            "end": 1.1,
-            "word": "LITTLE",
+            "end": 1.11,
             "phones": [
                 {
                     "phone": "L",
@@ -42,24 +41,24 @@
                 },
                 {
                     "phone": "AH0",
-                    "duration": 0.05
+                    "duration": 0.04
                 },
                 {
                     "phone": "L",
-                    "duration": 0.08
+                    "duration": 0.1
                 }
             ],
+            "word": "LITTLE",
             "case": "success"
         },
         {
             "alignedWord": "work",
-            "start": 1.1,
-            "end": 1.42,
-            "word": "WORK",
+            "start": 1.11,
+            "end": 1.41,
             "phones": [
                 {
                     "phone": "W",
-                    "duration": 0.09
+                    "duration": 0.08
                 },
                 {
                     "phone": "ER1",
@@ -67,20 +66,20 @@
                 },
                 {
                     "phone": "K",
-                    "duration": 0.13
+                    "duration": 0.12
                 }
             ],
+            "word": "WORK",
             "case": "success"
         },
         {
             "alignedWord": "was",
-            "start": 1.45,
+            "start": 1.44,
             "end": 1.69,
-            "word": "WAS",
             "phones": [
                 {
                     "phone": "W",
-                    "duration": 0.07
+                    "duration": 0.08
                 },
                 {
                     "phone": "AH1",
@@ -91,13 +90,13 @@
                     "duration": 0.1
                 }
             ],
+            "word": "WAS",
             "case": "success"
         },
         {
             "alignedWord": "finished",
             "start": 1.69,
             "end": 2.16,
-            "word": "FINISHED",
             "phones": [
                 {
                     "phone": "F",
@@ -124,13 +123,13 @@
                     "duration": 0.06
                 }
             ],
+            "word": "FINISHED",
             "case": "success"
         },
         {
             "alignedWord": "in",
             "start": 2.16,
-            "end": 2.36,
-            "word": "IN",
+            "end": 2.35,
             "phones": [
                 {
                     "phone": "IH0",
@@ -138,16 +137,16 @@
                 },
                 {
                     "phone": "N",
-                    "duration": 0.08
+                    "duration": 0.07
                 }
             ],
+            "word": "IN",
             "case": "success"
         },
         {
             "alignedWord": "the",
-            "start": 2.36,
+            "start": 2.35,
             "end": 2.41,
-            "word": "THE",
             "phones": [
                 {
                     "phone": "DH",
@@ -155,16 +154,16 @@
                 },
                 {
                     "phone": "IY0",
-                    "duration": 0.03
+                    "duration": 0.04
                 }
             ],
+            "word": "THE",
             "case": "success"
         },
         {
             "alignedWord": "year",
             "start": 2.41,
             "end": 2.7,
-            "word": "YEAR",
             "phones": [
                 {
                     "phone": "Y",
@@ -179,13 +178,13 @@
                     "duration": 0.1
                 }
             ],
+            "word": "YEAR",
             "case": "success"
         },
         {
             "alignedWord": "eighteen",
             "start": 2.73,
-            "end": 3.21,
-            "word": "EIGHTEEN",
+            "end": 3.22,
             "phones": [
                 {
                     "phone": "EY1",
@@ -201,29 +200,29 @@
                 },
                 {
                     "phone": "N",
-                    "duration": 0.06
+                    "duration": 0.07
                 }
             ],
+            "word": "EIGHTEEN",
             "case": "success"
         },
         {
             "alignedWord": "o",
             "start": 3.25,
             "end": 3.43,
-            "word": "O",
             "phones": [
                 {
                     "phone": "OW1",
                     "duration": 0.18
                 }
             ],
+            "word": "O",
             "case": "success"
         },
         {
             "alignedWord": "three",
             "start": 3.43,
             "end": 3.86,
-            "word": "THREE",
             "phones": [
                 {
                     "phone": "TH",
@@ -238,13 +237,13 @@
                     "duration": 0.22
                 }
             ],
+            "word": "THREE",
             "case": "success"
         },
         {
             "alignedWord": "and",
             "start": 4.26,
             "end": 4.47,
-            "word": "AND",
             "phones": [
                 {
                     "phone": "AE1",
@@ -259,13 +258,13 @@
                     "duration": 0.04
                 }
             ],
+            "word": "AND",
             "case": "success"
         },
         {
             "alignedWord": "intended",
             "start": 4.47,
             "end": 4.99,
-            "word": "INTENDED",
             "phones": [
                 {
                     "phone": "IH0",
@@ -300,13 +299,13 @@
                     "duration": 0.07
                 }
             ],
+            "word": "INTENDED",
             "case": "success"
         },
         {
             "alignedWord": "for",
             "start": 4.99,
             "end": 5.17,
-            "word": "FOR",
             "phones": [
                 {
                     "phone": "F",
@@ -321,13 +320,13 @@
                     "duration": 0.07
                 }
             ],
+            "word": "FOR",
             "case": "success"
         },
         {
             "alignedWord": "immediate",
             "start": 5.17,
             "end": 5.62,
-            "word": "IMMEDIATE",
             "phones": [
                 {
                     "phone": "IH0",
@@ -358,13 +357,13 @@
                     "duration": 0.06
                 }
             ],
+            "word": "IMMEDIATE",
             "case": "success"
         },
         {
             "alignedWord": "publication",
             "start": 5.62,
-            "end": 6.43,
-            "word": "PUBLICATION",
+            "end": 6.42,
             "phones": [
                 {
                     "phone": "P",
@@ -392,45 +391,45 @@
                 },
                 {
                     "phone": "EY1",
-                    "duration": 0.12
+                    "duration": 0.11
                 },
                 {
                     "phone": "SH",
-                    "duration": 0.12
+                    "duration": 0.13
                 },
                 {
                     "phone": "AH0",
-                    "duration": 0.05
+                    "duration": 0.04
                 },
                 {
                     "phone": "N",
                     "duration": 0.16
                 }
             ],
+            "word": "PUBLICATION",
             "case": "success"
         },
         {
             "alignedWord": "it",
-            "start": 8.07,
+            "start": 8.08,
             "end": 8.19,
-            "word": "IT",
             "phones": [
                 {
-                    "phone": "IH0",
-                    "duration": 0.08
+                    "phone": "IH1",
+                    "duration": 0.07
                 },
                 {
                     "phone": "T",
                     "duration": 0.04
                 }
             ],
+            "word": "IT",
             "case": "success"
         },
         {
             "alignedWord": "was",
             "start": 8.19,
             "end": 8.37,
-            "word": "WAS",
             "phones": [
                 {
                     "phone": "W",
@@ -445,13 +444,13 @@
                     "duration": 0.05
                 }
             ],
+            "word": "WAS",
             "case": "success"
         },
         {
             "alignedWord": "disposed",
             "start": 8.37,
             "end": 8.89,
-            "word": "DISPOSED",
             "phones": [
                 {
                     "phone": "D",
@@ -482,13 +481,13 @@
                     "duration": 0.05
                 }
             ],
+            "word": "DISPOSED",
             "case": "success"
         },
         {
             "alignedWord": "of",
             "start": 8.89,
             "end": 9.1,
-            "word": "OF",
             "phones": [
                 {
                     "phone": "AH1",
@@ -499,13 +498,13 @@
                     "duration": 0.07
                 }
             ],
+            "word": "OF",
             "case": "success"
         },
         {
             "alignedWord": "to",
             "start": 9.1,
             "end": 9.25,
-            "word": "TO",
             "phones": [
                 {
                     "phone": "T",
@@ -516,26 +515,26 @@
                     "duration": 0.09
                 }
             ],
+            "word": "TO",
             "case": "success"
         },
         {
             "alignedWord": "a",
             "start": 9.25,
             "end": 9.31,
-            "word": "A",
             "phones": [
                 {
                     "phone": "AH0",
                     "duration": 0.06
                 }
             ],
+            "word": "A",
             "case": "success"
         },
         {
             "alignedWord": "bookseller",
             "start": 9.31,
-            "end": 9.95,
-            "word": "BOOKSELLER",
+            "end": 9.97,
             "phones": [
                 {
                     "phone": "B",
@@ -563,16 +562,16 @@
                 },
                 {
                     "phone": "ER0",
-                    "duration": 0.16
+                    "duration": 0.18
                 }
             ],
+            "word": "BOOKSELLER",
             "case": "success"
         },
         {
             "alignedWord": "it",
             "start": 10.29,
             "end": 10.41,
-            "word": "IT",
             "phones": [
                 {
                     "phone": "IH1",
@@ -583,13 +582,13 @@
                     "duration": 0.04
                 }
             ],
+            "word": "IT",
             "case": "success"
         },
         {
             "alignedWord": "was",
             "start": 10.41,
             "end": 10.57,
-            "word": "WAS",
             "phones": [
                 {
                     "phone": "W",
@@ -604,13 +603,13 @@
                     "duration": 0.06
                 }
             ],
+            "word": "WAS",
             "case": "success"
         },
         {
             "alignedWord": "even",
             "start": 10.57,
             "end": 10.83,
-            "word": "EVEN",
             "phones": [
                 {
                     "phone": "IY1",
@@ -629,13 +628,13 @@
                     "duration": 0.05
                 }
             ],
+            "word": "EVEN",
             "case": "success"
         },
         {
             "alignedWord": "advertised",
             "start": 10.83,
             "end": 11.6,
-            "word": "ADVERTISED",
             "phones": [
                 {
                     "phone": "AE1",
@@ -670,6 +669,7 @@
                     "duration": 0.09
                 }
             ],
+            "word": "ADVERTISED",
             "case": "success"
         }
     ]

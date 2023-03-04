@@ -177,7 +177,7 @@ def frame_schedule(textPath):
                 addPhoneme(truePhone, timeAt-phone["duration"])
         OS_IndexAt = OS_nextIndex
 
-    print("Writing schedule to file "+str(localpath)+"/data/text/schedule.txt")
+    print("Writing schedule to file "+str(localpath)+"/data/text/test_schedule.csv")
     f = open(str(localpath)+"/data/text/test_schedule.csv", "w+")
     for i in range(len(strings)):
         f.write(strings[i])

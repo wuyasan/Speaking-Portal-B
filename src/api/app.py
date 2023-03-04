@@ -1,7 +1,7 @@
-from flask import Flask, request, send_from_directory
 import os
-import json
+from flask import Flask, request, send_from_directory
 from functions import receiveFiles, returnObj, mfa
+# from src.scheduler import frame_schedule
 app = Flask(__name__)
 
 app.config["SERVER_FILES"] = os.getcwd() + "/server_files"
@@ -9,7 +9,7 @@ app.config["SERVER_FILES"] = os.getcwd() + "/server_files"
 @app.route('/generate', methods=['PUT'])
 def generate():
     # TODO: Receive text and audio files
-    # return 'FilesReceived', 200
+
     text_file = request.files['text_file']
     audio_file = request.files['audio_file']
     
@@ -30,9 +30,11 @@ def generate():
 
     print("Running mfa validate with job_dir: " + job_dir)
 
-    # obj = mfa.validate(job_dir)
-    # if obj['status'] == 'error':
-    #     return obj, obj['code']
+    obj = mfa.validate(job_dir)
+    if obj['status'] == 'error':
+        return obj, obj['code']
+    
+    print("Time taken to validate: " + str(obj['data']['timeTaken']) + " seconds")
 
     # TODO Run mfa align
 
@@ -43,12 +45,11 @@ def generate():
     if obj['status'] == 'error':
         return obj, obj['code']
 
+    print("Time taken to align: " + str(obj['data']['timeTaken']) + " seconds")
     # TODO: Conver mfa output to gentle output
 
     obj = mfa.converter(output_dir=job_dir + "/output", json_filename=text_file.filename.replace(".lab", ".json"))
     if obj['status'] == 'error':
-        return obj, obj['code']
-    else: 
         return obj, obj['code']
 
     # TODO: Run frame scheduler

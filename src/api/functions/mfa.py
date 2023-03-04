@@ -103,7 +103,7 @@ def converter(output_dir, json_filename):
                 mfa_word = word_info[2]
                 gwords += (mfa_word + " ").upper()
 
-                print("Word: " + mfa_word + " Start: " + str(mfa_word_start) + " End: " + str(mfa_word_end))
+                # print("Word: " + mfa_word + " Start: " + str(mfa_word_start) + " End: " + str(mfa_word_end))
 
                 gentle_word_set = {
                     "alignedWord": mfa_word,
@@ -153,7 +153,7 @@ def converter(output_dir, json_filename):
                     # Then set the iterator to the index of the last(end) phone in the set and break
 
                 # Retrieve phones between start and end phones
-                print("Start and end phones phones for word: ", mfa_word, " : ", phones_for_word)
+                # print("Start and end phones phones for word: ", mfa_word, " : ", phones_for_word)
             
                 if(len(phones_for_word) > 1):
                     for i in range(start_index+1, end_index):
@@ -167,7 +167,7 @@ def converter(output_dir, json_filename):
                         phones_for_word.insert(i, phone)
                     phones_for_word.sort(key=lambda x: x['mfa_index'])
                 
-                print("Phones for word ", mfa_word, " : ", phones_for_word)
+                # print("Phones for word ", mfa_word, " : ", phones_for_word)
                 gentle_word_set['phones'] = phones_for_word
                 words.append(gentle_word_set)
             
@@ -194,7 +194,7 @@ def converter(output_dir, json_filename):
                 # Write to file
                 with open(output_dir + "/converted.json", "w") as f:
                     f.write(mfa2gentle)
-                    print("Wrote converted.json to " + output_dir + "/converted.json")
+                    # print("Wrote converted.json to " + output_dir + "/converted.json")
                     return returnObj.success(
                         msg="Wrote converted.json to " + output_dir + "/converted.json",
                         code=200,

@@ -28,10 +28,6 @@ BACKGROUND_COUNT = 5
 sys_info = platform.system()
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve()
 print("localpath in videoDrawer.py: ", localpath)
-if sys_info == "Darwin":
-    local_path = str(localpath) + "/data/text/test.json"
-else:
-    local_path = str(localpath) + "\\data\\text\\test.json"
 
 
 def getJiggle(x, fader, multiplier):

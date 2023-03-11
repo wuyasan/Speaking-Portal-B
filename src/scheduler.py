@@ -5,9 +5,13 @@ import json
 import numpy as np
 import random
 import pathlib
-
+import logging
+logging.basicConfig(level=logging.INFO)
+from phoneToMouthMap import getMouthDict
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve()
 print("Scheduler.py localpath: "+str(localpath))
+logging.info("Scheduler.py localpath: "+str(localpath))
+
 
 def addPhoneme(p, t):
     global prevPhoneme
@@ -30,8 +34,28 @@ def pickNewPose(t):
     strings[3] += (str.format('{0:.3f}', t)+",pose,"+str(pose)+"\n")
     prevPhoneme = "na"
 
+def assignPhoneToMouth(phone: str, mouths: dict):
+    logging.info("Assiging phone: " + str(phone) + " to mouth")
+    # Remove any stress marks
+    phone = phone.replace("1", "")
+    phone = phone.replace("2", "")
+    phone = phone.replace("0", "")
+
+    # Lowercase
+    phone = phone.lower()
+
+    # If the phone is in the map, return the mouth
+    if phone in mouths:
+        return mouths[phone]
+    else:
+        # If the phone is not in the map, return the mouth for "oov"
+        return mouths["oov"]
+    
+
+
+
 def frame_schedule(textPath):
-    print("TextPath in frame_schedule: "+str(textPath))
+    logging.info("TextPath in frame_schedule: "+str(textPath))
     global strings
     global pose
     global prevPose
@@ -54,19 +78,7 @@ def frame_schedule(textPath):
     emotions["confused"] = 4
     emotions["rq"] = 5
 
-    mouthList = [["aa", "a"], ["ae", "a"], ["ah", "a"], ["ao", "a"], ["aw", "au"],
-                ["ay", "ay"], ["b", "m"], ["ch", "t"], ["d", "t"], ["dh", "t"],
-                ["eh", "a"], ["er", "u"], ["ey", "ay"], ["f", "f"], ["g", "t"],
-                ["hh", "y"], ["ih", "a"], ["iy", "ay"], ["jh", "t"], ["k", "t"],
-                ["l", "y"], ["m", "m"], ["n", "t"], ["ng", "t"], ["ow", "au"],
-                ["oy", "ua"], ["p", "m"], ["r", "u"], ["s", "t"], ["sh", "t"],
-                ["t", "t"], ["th", "t"], ["uh", "u"], ["uw", "u"], ["v", "f"],
-                ["w", "u"], ["y", "y"], ["z", "t"], ["zh", "t"],
-                ["oov", "m"]]  # For unknown phonemes, the stick figure will just have a closed mouth ("mmm")
-
-    mouths = {}
-    for x in mouthList:
-        mouths[x[0]] = x[1]
+    mouths = getMouthDict(lang="ENGLISH")
 
     ENDING_PHONEME = "m"
     STOPPERS = [",", ";", ".", ":", "!", "?"]
@@ -75,11 +87,13 @@ def frame_schedule(textPath):
     parser.add_argument('--input_file', type=str,  help='the script')
     args = parser.parse_args()
     INPUT_FILE = args.input_file
-    print("INPUT_FILE in frame_schedule: "+str(INPUT_FILE))
+    logging.info("INPUT_FILE in frame_schedule: "+str(INPUT_FILE))
 
     f = open(textPath, "r+")
     originalScript = f.read()
     f.close()
+
+    logging.info("Loaded original script: \n"+str(originalScript))
 
     #if(path.exists(str(localpath)+"/data/text/mfa2gentle.json")): 
         #print("MFA")   #if MFA is detected use MFA json
@@ -109,19 +123,27 @@ def frame_schedule(textPath):
     strings[4] += "0,phoneme,m\n"
     for i in range(WORD_COUNT):
         word = data['words'][i]
+        logging.info("Scheduling Word: "+str(word))
         if "start" not in word:
             continue
         wordString = word["word"]
         timeStart = word["start"]
 
         OS_nextIndex = originalScript.index(wordString, OS_IndexAt)+len(wordString)
+        logging.info("OS_nextIndex: "+str(OS_nextIndex))
         if "<" in originalScript[OS_IndexAt:]:
+            logging.info("Found < in originalScript ")
             tagStart = originalScript.index("<", OS_IndexAt)
             tagEnd = originalScript.index(">", OS_IndexAt)
+            logging.info("Tag `<` at index: "+str(tagStart))
+            logging.info("Tag `>` at index: "+str(tagEnd))
             if OS_nextIndex > tagStart and tagEnd >= OS_nextIndex:
+                logging.info("Tag is in word" + str(wordString))
                 OS_nextIndex = originalScript.index(
                     wordString, tagEnd)+len(wordString)
+                logging.info("OS_nextIndex: "+str(OS_nextIndex))
         nextDigest = originalScript[OS_IndexAt:OS_nextIndex]
+        logging.info("NextDigest: "+str(nextDigest))
 
         if "\n" in nextDigest and data['words'][i-1]['case'] != 'not-found-in-audio' and (prevPhoneme == "a" or prevPhoneme == "f" or prevPhoneme == "u" or prevPhoneme == "y"):
             addPhoneme("m", data['words'][i-1]["end"])
@@ -131,14 +153,19 @@ def frame_schedule(textPath):
         print(nextDigest)
         print("")"""
         pickedPose = False
+        
+        # Changing posing based on punctuation in the script
         for stopper in STOPPERS:
             if stopper in nextDigest:
                 pickNewPose(timeStart)
                 pickedPose = True
 
         if "<" in nextDigest:
+            logging.info("Found < in nextDigest: " + str(nextDigest))
             leftIndex = nextDigest.index("<")+1
+            logging.info("leftIndex of < in nextDigest: "+str(leftIndex))
             rightIndex = nextDigest.index(">")
+            logging.info("rightIndex of > in nextDigest: "+str(rightIndex))
             emotion = emotions[nextDigest[leftIndex:rightIndex]]
             strings[1] += (str.format('{0:.3f}', timeStart) +
                         ",emotion,"+str(emotion)+"\n")
@@ -163,21 +190,28 @@ def frame_schedule(textPath):
 
         phones = word["phones"]
         timeAt = timeStart
+        logging.info("Scheduling phones for word: "+str(wordString))
+        logging.info("Phones: "+str(phones))
+        logging.info("TimeStart: "+str(timeStart))
         for phone in phones:
             timeAt += phone["duration"]
             phoneString = phone["phone"]
-            if phoneString == "sil":
-                truePhone = "m"
-            else:
-                truePhone = mouths[phoneString[:phoneString.index("_")]]
+
+            truePhone = assignPhoneToMouth(phone=phoneString, mouths=mouths)
             if len(truePhone) == 2:
+                logging.info("Adding 2 phonemes: "+str(truePhone))
                 addPhoneme(truePhone[0], timeAt-phone["duration"])
                 addPhoneme(truePhone[1], timeAt-phone["duration"]*0.5)
             else:
+                logging.info("Adding 1 phoneme: "+str(truePhone))
                 addPhoneme(truePhone, timeAt-phone["duration"])
+        logging.info("Done scheduling phones for word: "+str(wordString))
         OS_IndexAt = OS_nextIndex
+        logging.info("Shifted OS_IndexAt to: "+str(OS_IndexAt))
 
+    # exit(0)
     print("Writing schedule to file "+str(localpath)+"/data/text/test_schedule.csv")
+    logging.info("Writing schedule to file "+str(localpath)+"/data/text/test_schedule.csv")
     f = open(str(localpath)+"/data/text/test_schedule.csv", "w+")
     for i in range(len(strings)):
         f.write(strings[i])
@@ -186,3 +220,4 @@ def frame_schedule(textPath):
     f.flush()
     f.close()
     print(f"Done creating schedule for {INPUT_FILE}.")
+    logging.info("Done creating schedule for "+str(INPUT_FILE))

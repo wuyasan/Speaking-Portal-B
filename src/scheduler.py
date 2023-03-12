@@ -54,8 +54,10 @@ def assignPhoneToMouth(phone: str, mouths: dict):
 
 
 
-def frame_schedule(textPath):
+def frame_schedule(textPath, aligned_json_path, job, lang="ENGLISH"):
     logging.info("TextPath in frame_schedule: "+str(textPath))
+    logging.info("aligned_json_path in frame_schedule: "+str(aligned_json_path))
+    logging.info("job in frame_schedule: "+str(job.get_job()))
     global strings
     global pose
     global prevPose
@@ -78,17 +80,18 @@ def frame_schedule(textPath):
     emotions["confused"] = 4
     emotions["rq"] = 5
 
-    mouths = getMouthDict(lang="ENGLISH")
+    mouths = getMouthDict(lang)
 
     ENDING_PHONEME = "m"
     STOPPERS = [",", ";", ".", ":", "!", "?"]
 
-    parser = argparse.ArgumentParser(description='blah')
-    parser.add_argument('--input_file', type=str,  help='the script')
-    args = parser.parse_args()
-    INPUT_FILE = args.input_file
-    logging.info("INPUT_FILE in frame_schedule: "+str(INPUT_FILE))
+    # parser = argparse.ArgumentParser(description='blah')
+    # parser.add_argument('--input_file', type=str,  help='the script')
+    # args = parser.parse_args()
+    # INPUT_FILE = args.input_file
+    # logging.info("INPUT_FILE in frame_schedule: "+str(INPUT_FILE))
 
+    # Load the text_file provided by user
     f = open(textPath, "r+")
     originalScript = f.read()
     f.close()
@@ -102,7 +105,9 @@ def frame_schedule(textPath):
         #f.close()
     #else:
        # print("Gentle")                                             #if no MFA use gentle json
-    f = open(str(localpath)+"/data/text/mfa2gentle.json", "r+")
+    
+    # Load the converted aligned json file
+    f = open(aligned_json_path, "r")
     fileData = f.read()
     f.close()
 
@@ -209,15 +214,20 @@ def frame_schedule(textPath):
         OS_IndexAt = OS_nextIndex
         logging.info("Shifted OS_IndexAt to: "+str(OS_IndexAt))
 
-    # exit(0)
-    print("Writing schedule to file "+str(localpath)+"/data/text/test_schedule.csv")
-    logging.info("Writing schedule to file "+str(localpath)+"/data/text/test_schedule.csv")
-    f = open(str(localpath)+"/data/text/test_schedule.csv", "w+")
+    
+    
+    # Write the schedule to outputs dir of job
+    logging.info("Writing schedule to file " + job.get_job_dir() + "/outputs/schedule.csv")
+    f = open(job.get_job_dir() + "/outputs/schedule.csv", "w+")
     for i in range(len(strings)):
         f.write(strings[i])
         if i < len(strings)-1:
             f.write("SECTION\n")
     f.flush()
     f.close()
-    print(f"Done creating schedule for {INPUT_FILE}.")
-    logging.info("Done creating schedule for "+str(INPUT_FILE))
+    logging.info("RAN SCHEDULER SUCCESSFULLY")
+    return {
+        "status": "success",
+        "message": "RAN SCHEDULER SUCCESSFULLY",
+        "code": 200
+    }

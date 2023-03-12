@@ -95,7 +95,8 @@ def frame_schedule(textPath, aligned_json_path, job, lang="ENGLISH"):
     f = open(textPath, "r+")
     originalScript = f.read()
     f.close()
-
+    # Making it uppercase avoids ValueError in originalScript.index(wordString, OS_IndexAt)+len(wordString) as the wordString obtained from json is uppercase
+    originalScript = originalScript.upper()
     logging.info("Loaded original script: \n"+str(originalScript))
 
     #if(path.exists(str(localpath)+"/data/text/mfa2gentle.json")): 
@@ -133,7 +134,7 @@ def frame_schedule(textPath, aligned_json_path, job, lang="ENGLISH"):
             continue
         wordString = word["word"]
         timeStart = word["start"]
-
+        
         OS_nextIndex = originalScript.index(wordString, OS_IndexAt)+len(wordString)
         logging.info("OS_nextIndex: "+str(OS_nextIndex))
         if "<" in originalScript[OS_IndexAt:]:

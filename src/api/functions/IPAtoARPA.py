@@ -1,7 +1,8 @@
 import json
 import pathlib
-
-_arpabet2ipa = {
+from jobQueue import Job
+from returnObj import success, error
+_ipa2arpabet = {
     'a':'AA',
     'ɑ':'AA',
     'a':'AE',
@@ -64,21 +65,40 @@ _arpabet2ipa = {
     'ʒ':'ZH'
 }
 
+def convert_IPA_to_ARPA(input_path, output_path, job: Job = None):
+    try:
+        with open(input_path, 'r') as f:
+            data = json.load(f)
+            entries = data['tiers']['phones']['entries']
+            for i, x in enumerate(entries, start=0):
+                print("Old entry: " + str(x))
+                ipa_phone = x[2]
+                arpa_phone = _ipa2arpabet.get(ipa_phone)
+                print("Converting: " + str(ipa_phone) + " with length: " + str(len(ipa_phone)) + " to " + str(arpa_phone))
+                # TODO: If none, either add relevant ARPA to dict for corresponding phone or replace with `spn` which is the default for unknown phones in MFA.
+                if arpa_phone is None:
+                    print("Got None for: " + str(ipa_phone) +  " , replacing with spn")
+                    arpa_phone = "spn"
+                x[2] = arpa_phone
+                print("New entry: " + str(x))
+                entries[i] = x
+            data['tiers']['phones']['entries'] = entries
+
+            converted_arpa_json = json.dumps(data, indent=4)
+            
+            with open(output_path, 'w', encoding = 'utf-8') as f:
+                f.write(converted_arpa_json)
+                print("Successfully converted IPA to ARPA")
+                # return success("Successfully converted IPA to ARPA", code=200, job_id=job.get_job_id(), data={
+                #     "converted_arpa_json": converted_arpa_json,
+                # })
+    except Exception as e:
+        print("Error converting IPA to ARPA: " + str(e))
+        # return error("Error converting IPA to ARPA: " + str(e), code=500, job_id=job.get_job_id())
 
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve().parent.resolve().parent.resolve()
-JSONpath = str(localpath) + "/data/text/MFA.json"
-with open(JSONpath, 'r') as f:
-    data = json.load(f)
-    entries = data['tiers']['phones']['entries']
-    for x in entries:
-        phones = x[2]
-        print("Converting: " + str(phones) + " with length: " + str(len(phones)) + " to " + str(_arpabet2ipa.get(phones)))
-        # TODO: If none either add relevant ARPA to dict or replace with spn which is the default for unknown phones in MFA.
-        if _arpabet2ipa.get(phones) is None:
-            print("GOT NONE FOR: " + str(phones))
-        
+input_path = str(localpath) + "/data/text/MFA.json"
+output_path = str(localpath) + "/data/text/MFA_ARPA.json"
 
-# with open(JSONpath, 'w', encoding = 'utf-8') as f:
-#     json.dump(data,f,ensure_ascii=False)
-   
+convert_IPA_to_ARPA(input_path, output_path)
 

@@ -1,7 +1,7 @@
 import json
 import pathlib
-from jobQueue import Job
-from returnObj import success, error
+from functions.jobQueue import Job
+from functions.returnObj import success, error
 _ipa2arpabet = {
     'a':'AA',
     'ɑ':'AA',
@@ -89,16 +89,9 @@ def convert_IPA_to_ARPA(input_path, output_path, job: Job = None):
             with open(output_path, 'w', encoding = 'utf-8') as f:
                 f.write(converted_arpa_json)
                 print("Successfully converted IPA to ARPA")
-                # return success("Successfully converted IPA to ARPA", code=200, job_id=job.get_job_id(), data={
-                #     "converted_arpa_json": converted_arpa_json,
-                # })
+                return success("Successfully converted IPA to ARPA", code=200, job_id=job.get_job_id(), data={
+                    "converted_arpa_json": converted_arpa_json,
+                })
     except Exception as e:
         print("Error converting IPA to ARPA: " + str(e))
-        # return error("Error converting IPA to ARPA: " + str(e), code=500, job_id=job.get_job_id())
-
-localpath = pathlib.Path(__file__).parent.resolve().parent.resolve().parent.resolve().parent.resolve()
-input_path = str(localpath) + "/data/text/MFA.json"
-output_path = str(localpath) + "/data/text/MFA_ARPA.json"
-
-convert_IPA_to_ARPA(input_path, output_path)
-
+        return error("Error converting IPA to ARPA: " + str(e), code=500, job_id=job.get_job_id())

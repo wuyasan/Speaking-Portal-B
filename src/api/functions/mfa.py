@@ -6,7 +6,8 @@ from functions import returnObj
 from functions.jobQueue import Job
 
 models = {
-    "english": {"dictionary": "english_us_arpa", "acoustic_model": "english_us_arpa"}
+    "english": {"dictionary": "english_us_arpa", "acoustic_model": "english_us_arpa"},
+    "french": {"dictionary": "french_mfa", "acoustic_model": "french_mfa"}
 }
 
 

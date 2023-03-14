@@ -54,41 +54,41 @@ class JobQueue:
     def __init__(self):
          self.queue = []
 
-    def add_job(self, job: Job):
+    def add_job(self, job: Job) -> None:
         self.queue.append(job)
 
-    def get_job(self, job_id):
+    def get_job(self, job_id) -> Job:
         for job in self.queue:
             if job.get_job_id() == job_id:
                 return job
         return None
     
-    def get_job_status(self, job_id):
+    def get_job_status(self, job_id) -> JobStatus:
         job = self.get_job(job_id)
         if job is not None:
             return job.get_status()
         return None
     
-    def get_job_dir(self, job_id):
+    def get_job_dir(self, job_id) -> str:
         job = self.get_job(job_id)
         if job is not None:
             return job.get_job_dir()
         return None
     
-    def get_job_queue(self):
+    def get_job_queue(self) -> list:
         return self.queue
     
-    def get_job_queue_length(self):
+    def get_job_queue_length(self) -> int:
         return len(self.queue)
     
-    def set_job_status(self, job_id, status):
+    def set_job_status(self, job_id, status) -> bool:
         job = self.get_job(job_id)
         if job is not None:
             job.set_status(status)
             return True
         return False
     
-    def remove_job(self, job_id):
+    def remove_job(self, job_id) -> bool:
         job = self.get_job(job_id)
         # Delete job directory
         print("Deleting job directory: " + job.get_job_dir())

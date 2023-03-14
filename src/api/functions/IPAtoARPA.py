@@ -73,6 +73,7 @@ with open(JSONpath, 'r') as f:
     for x in entries:
         phones = x[2]
         print("Converting: " + str(phones) + " with length: " + str(len(phones)) + " to " + str(_arpabet2ipa.get(phones)))
+        # TODO: If none either add relevant ARPA to dict or replace with spn which is the default for unknown phones in MFA.
         if _arpabet2ipa.get(phones) is None:
             print("GOT NONE FOR: " + str(phones))
         

@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 # os.mkdir(JOB_DIR)
 
 def receive_files(text_file, audio_file, job: Job):
-    logging.info("Received files and initialized job: \n" + str(job))
+    logging.info("Received files and initialized job: \n" + str(job.get_job()))
     job_dir = job.get_job_dir()
     inputs_dir = job_dir + "/inputs"
     job_id = job.get_job_id()

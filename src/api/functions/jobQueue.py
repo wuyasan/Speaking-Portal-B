@@ -9,6 +9,13 @@ class JobStatus(Enum):
     PENDING = 0
     COMPLETED = 1
     ERROR = 2
+    PROCESSING_FILES = 3
+    MFA_VALIDATION = 4
+    MFA_ALIGN = 5
+    MFA_CONVERTER = 6
+    SCHEDULING_FRAMES = 7
+    GENERATING_VIDEO_FRAMES = 8
+    STITCHING_VIDEO_FRAMES = 9
 
 class Job:
         
@@ -40,7 +47,6 @@ class Job:
             return {
                 "job_id": self.job_id,
                 "status": self.status,
-                "job_dir": self.job_dir
             }
 
 class JobQueue:

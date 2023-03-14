@@ -67,16 +67,17 @@ _arpabet2ipa = {
 
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve().parent.resolve().parent.resolve()
 JSONpath = str(localpath) + "/data/text/MFA.json"
-with open(JSONpath, 'r', encoding = 'utf-8') as f:
+with open(JSONpath, 'r') as f:
     data = json.load(f)
     entries = data['tiers']['phones']['entries']
     for x in entries:
         phones = x[2]
-        for y in phones:
-            print(_arpabet2ipa.get(y))
+        print("Converting: " + str(phones) + " with length: " + str(len(phones)) + " to " + str(_arpabet2ipa.get(phones)))
+        if _arpabet2ipa.get(phones) is None:
+            print("GOT NONE FOR: " + str(phones))
         
 
-with open(JSONpath, 'w', encoding = 'utf-8') as f:
-    json.dump(data,f,ensure_ascii=False)
+# with open(JSONpath, 'w', encoding = 'utf-8') as f:
+#     json.dump(data,f,ensure_ascii=False)
    
 

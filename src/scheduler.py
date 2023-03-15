@@ -92,7 +92,7 @@ def frame_schedule(textPath, aligned_json_path, job, lang="ENGLISH"):
     # logging.info("INPUT_FILE in frame_schedule: "+str(INPUT_FILE))
 
     # Load the text_file provided by user
-    f = open(textPath, "r+")
+    f = open(textPath, "r+", encoding='UTF-8')
     originalScript = f.read()
     f.close()
     # Making it uppercase avoids ValueError in originalScript.index(wordString, OS_IndexAt)+len(wordString) as the wordString obtained from json is uppercase

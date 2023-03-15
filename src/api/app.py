@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # src/
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))) # root
 from flask import Flask, request, send_from_directory
-from functions import receiveFiles, returnObj, mfa, JpntextConvert
+from functions import receiveFiles, returnObj, mfa, JpntextConvert, IPAtoARPA
 from functions.jobQueue import JobQueue, Job, JobStatus
 from src import scheduler, videoDrawer
 app = Flask(__name__)
@@ -107,6 +107,19 @@ def generate():
         job_queue.remove_job(job_id=obj['data']['job_id'])
         return obj, obj['code']
     print("Time taken to align: " + str(obj['data']['timeTaken']) + " seconds")
+
+    # Convert french IPA to ARPA
+    if lang == "french":
+        logging.info("Converting french IPA to ARPA")
+        mfa_json = job_queue.get_job(job_id=obj['data']['job_id']).get_job_dir() + "/outputs/" + obj["data"]["job_id"] + ".json"
+        obj = IPAtoARPA.convert_IPA_to_ARPA(mfa_json, mfa_json, job=job)
+        if obj['status'] == 'error':
+            # Change the status of the job to ERROR
+            job.set_status(JobStatus.ERROR)
+            # Remove the job from queue
+            job_queue.remove_job(job_id=obj['job_id'])
+            return obj, obj['code']
+
     
     # Conver mfa output to gentle output
     # Change the status of the job to MFA_CONVERT
@@ -123,8 +136,16 @@ def generate():
     job = job_queue.get_job(job_id=obj['data']['job_id'])
     # Change the status of the job to FRAME_SCHEDULER
     job.set_status(JobStatus.SCHEDULING_FRAMES)
-    obj = scheduler.frame_schedule(textPath=inputs_dir + "/" + job.get_job_id() + ".lab", aligned_json_path= job_dir + "/outputs/mfa_converted.json", job=job, lang=lang.upper())
-
+    try: 
+        obj = scheduler.frame_schedule(textPath=inputs_dir + "/" + job.get_job_id() + ".lab", aligned_json_path= job_dir + "/outputs/mfa_converted.json", job=job, lang=lang.upper())
+    except Exception as e:
+        logging.error("Error in frame scheduler: " + str(e))
+        # Change the status of the job to ERROR
+        job.set_status(JobStatus.ERROR)
+        # Remove the job from queue
+        job_queue.remove_job(job_id=job.get_job_id())
+        return returnObj.error(msg="Error in frame scheduler: " + str(e), code=500), 500
+    
     # Run video drawer
     schedulePath =  job_dir + "/outputs/schedule.csv"
     logging.info("Running video drawer with schedulePath: " + schedulePath)
@@ -135,7 +156,7 @@ def generate():
         # Change the status of the job to ERROR
         job.set_status(JobStatus.ERROR)
         # Remove the job from queue
-        job_queue.remove_job(job_id=obj['data']['job_id'])
+        job_queue.remove_job(job_id=obj['job_id'])
         return obj, obj['code']
     logging.info("Frames generated successfully")
 

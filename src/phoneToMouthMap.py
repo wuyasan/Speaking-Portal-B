@@ -37,8 +37,8 @@ def getMouthDict(lang):
     if lang == None or lang == "":
         return ENGLISH_US_ARPA_PHONE_MOUTHS
 
-    if lang == "ENGLISH":
-        return ENGLISH_US_ARPA_PHONE_MOUTHS
-
     if lang == "JAPANESE":
         return JAPANESE_PHONES_MOUTHS
+
+    if lang == "ENGLISH" or lang == "FRENCH":
+        return ENGLISH_US_ARPA_PHONE_MOUTHS

@@ -7,7 +7,8 @@ from functions.jobQueue import Job
 
 models = {
     "english": {"dictionary": "english_us_arpa", "acoustic_model": "english_us_arpa"},
-    "japanese": {"dictionary": "japanese_mfa", "acoustic_model": "japanese_mfa"}
+    "japanese": {"dictionary": "japanese_mfa", "acoustic_model": "japanese_mfa"},
+    "french": {"dictionary": "french_mfa", "acoustic_model": "french_mfa"}
 }
 
 
@@ -34,6 +35,7 @@ def validate(input_dir, job: Job, lang="english"):
                 "timeTaken": end - start,
                 "job_id": job.get_job_id(),
             },
+            job_id=job.get_job_id(),
         )
     else:
         end = time.time()
@@ -46,6 +48,7 @@ def validate(input_dir, job: Job, lang="english"):
                 "timeTaken": end - start,
                 "job_id": job.get_job_id(),
             },
+            job_id=job.get_job_id(),
         )
 
 
@@ -75,6 +78,7 @@ def align(input_dir, job: Job, lang="english"):
                 "timeTaken": end - start,
                 "job_id": job.get_job_id(),
             },
+            job_id=job.get_job_id(),
         )
     else:
         end = time.time()
@@ -87,6 +91,7 @@ def align(input_dir, job: Job, lang="english"):
                 "timeTaken": end - start,
                 "job_id": job.get_job_id(),
             },
+            job_id=job.get_job_id(),
         )
 
 
@@ -202,11 +207,12 @@ def converter(output_dir, json_filename, job: Job):
                     f.write(mfa2gentle)
                     # print("Wrote converted.json to " + output_dir + "/converted.json")
                     return returnObj.success(
-                        msg="Wrote converted.json to " + output_dir + "/mfa_converted.json",
+                        msg="Wrote converted.json to " + output_dir + "/converted.json",
                         code=200,
-                        data= {
+                        data={
                             "job_id": job.get_job_id(),
-                        }
+                        },
+                        job_id=job.get_job_id(),
                     )
             except Exception as e:
                 return returnObj.error(
@@ -214,7 +220,8 @@ def converter(output_dir, json_filename, job: Job):
                     code=500,
                     data= {
                         "job_id": job.get_job_id(),
-                    }
+                    },
+                    job_id=job.get_job_id(),
                 )
 
     except Exception as e:
@@ -223,5 +230,6 @@ def converter(output_dir, json_filename, job: Job):
             code=500,
             data= {
                 "job_id": job.get_job_id(),
-            }
+            },
+            job_id=job.get_job_id(),
         )

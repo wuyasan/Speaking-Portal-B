@@ -77,7 +77,7 @@ def generate():
             # Change the status of the job to ERROR
             job.set_status(JobStatus.ERROR)
             # Remove the job from queue
-            job_queue.remove_job(job_id=obj['data']['job_id'])
+            job_queue.remove_job(job_id=obj['job_id'])
             return obj, obj['code']
     
     # print("Running mfa validate with job_dir: " + job_dir)

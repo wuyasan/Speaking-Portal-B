@@ -285,7 +285,8 @@ def runVideoDrawer(schedulePath, job):
         return {
             "status": "error",
             "message": "Error opening schedule file: " + str(e),
-            "code": 500
+            "code": 500,
+            "job_id": job.get_job_id()
         }
 
     
@@ -331,7 +332,8 @@ def runVideoDrawer(schedulePath, job):
         return {
             "status": "error",
             "message": "Error opening mouth coordinates file: " + str(e),
-            "code": 500
+            "code": 500,
+            "job_id": job.get_job_id()
         }
     mouthCoordinatesStr = f.read().split("\n")
     f.close()
@@ -381,5 +383,6 @@ def runVideoDrawer(schedulePath, job):
     return {
         "status": "success",
         "message": "Finished drawing frames",
-        "code": 200
+        "code": 200,
+        "job_id": job.get_job_id()
     }

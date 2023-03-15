@@ -6,9 +6,9 @@ import numpy as np
 import random
 import pathlib
 import logging
-logging.basicConfig(level=logging.INFO)
 from phoneToMouthMap import getMouthDict
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve()
+logging.basicConfig(level=logging.INFO)
 print("Scheduler.py localpath: "+str(localpath))
 logging.info("Scheduler.py localpath: "+str(localpath))
 
@@ -135,7 +135,16 @@ def frame_schedule(textPath, aligned_json_path, job, lang="ENGLISH"):
         wordString = word["word"]
         timeStart = word["start"]
         
-        OS_nextIndex = originalScript.index(wordString, OS_IndexAt)+len(wordString)
+        try:
+            OS_nextIndex = originalScript.index(wordString, OS_IndexAt)+len(wordString)
+        except ValueError as e:
+            logging.info("ValueError: "+str(e) + "\n WordString: " + str(wordString) + "\n OS_IndexAt: " + str(OS_IndexAt))
+            return {
+                "status": "error",
+                "message": "ValueError: "+str(e) + "\n WordString: " + str(wordString) + "\n OS_IndexAt: " + str(OS_IndexAt),
+                "job_id": job.get_job_id(),
+                "code": 500
+            }
         logging.info("OS_nextIndex: "+str(OS_nextIndex))
         if "<" in originalScript[OS_IndexAt:]:
             logging.info("Found < in originalScript ")

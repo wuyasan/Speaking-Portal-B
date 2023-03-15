@@ -145,6 +145,12 @@ def generate():
         # Remove the job from queue
         job_queue.remove_job(job_id=job.get_job_id())
         return returnObj.error(msg="Error in frame scheduler: " + str(e), code=500), 500
+    if obj['status'] == 'error':
+        # Change the status of the job to ERROR
+        job.set_status(JobStatus.ERROR)
+        # Remove the job from queue
+        job_queue.remove_job(job_id=job.get_job_id())
+        return obj, obj['code']
     
     # Run video drawer
     schedulePath =  job_dir + "/outputs/schedule.csv"

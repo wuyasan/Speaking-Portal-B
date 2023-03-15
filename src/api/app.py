@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # src/
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))) # root
 from flask import Flask, request, send_from_directory
-from functions import receiveFiles, returnObj, mfa, IPAtoARPA
+from functions import receiveFiles, returnObj, mfa, JpntextConvert, IPAtoARPA
 from functions.jobQueue import JobQueue, Job, JobStatus
 from src import scheduler, videoDrawer
 app = Flask(__name__)
@@ -33,7 +33,7 @@ def generate():
     
     # Check if lang is supported
     if lang not in SUPPORTED_LANGUAGES:
-        return returnObj.error(msg="Language not supported\n Select from " + SUPPORTED_LANGUAGES, code=400), 400
+        return returnObj.error(msg="Language not supported\n Select from " + str(SUPPORTED_LANGUAGES), code=400), 400
     # Receive text and audio files
     # TODO: Check file extensions is correct. If it's a .txt then convert to .lab. If it's a .mp3 then convert to .wav
     text_file = request.files['text_file']
@@ -67,18 +67,31 @@ def generate():
     job_dir = obj['data']['job_dir']
     inputs_dir = job_dir + "/inputs"
 
-    print("Running mfa validate with job_dir: " + job_dir)
-    # Change the status of the job to MFA_VALIDATION
-    job.set_status(JobStatus.MFA_VALIDATION)
-    obj = mfa.validate(inputs_dir, job, lang=lang)
-    if obj['status'] == 'error':
-        # Change the status of the job to ERROR
-        job.set_status(JobStatus.ERROR)
-        # Remove the job from queue
-        job_queue.remove_job(job_id=obj['data']['job_id'])
-        return obj, obj['code']
+    if lang == "japanese":
+        # Run Japanese String Separator
+        logging.info("Running Japanese String Separator")
+        input_path = inputs_dir + "/" + job.get_job_id() + ".lab"
+        # Output path is same as input path
+        obj = JpntextConvert.JpntextConvert(input_path=input_path, output_path=input_path, job=job)
+        if obj['status'] == 'error':
+            # Change the status of the job to ERROR
+            job.set_status(JobStatus.ERROR)
+            # Remove the job from queue
+            job_queue.remove_job(job_id=obj['job_id'])
+            return obj, obj['code']
     
-    print("Time taken to validate: " + str(obj['data']['timeTaken']) + " seconds")
+    # print("Running mfa validate with job_dir: " + job_dir)
+    # # Change the status of the job to MFA_VALIDATION
+    # job.set_status(JobStatus.MFA_VALIDATION)
+    # obj = mfa.validate(inputs_dir, job, lang=lang)
+    # if obj['status'] == 'error':
+    #     # Change the status of the job to ERROR
+    #     job.set_status(JobStatus.ERROR)
+    #     # Remove the job from queue
+    #     job_queue.remove_job(job_id=obj['data']['job_id'])
+    #     return obj, obj['code']
+    
+    # print("Time taken to validate: " + str(obj['data']['timeTaken']) + " seconds")
 
     # Run mfa align
 

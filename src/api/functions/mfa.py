@@ -6,7 +6,8 @@ from functions import returnObj
 from functions.jobQueue import Job
 
 models = {
-    "english": {"dictionary": "english_us_arpa", "acoustic_model": "english_us_arpa"}
+    "english": {"dictionary": "english_us_arpa", "acoustic_model": "english_us_arpa"},
+    "japanese": {"dictionary": "japanese_mfa", "acoustic_model": "japanese_mfa"}
 }
 
 
@@ -92,7 +93,7 @@ def align(input_dir, job: Job, lang="english"):
 def converter(output_dir, json_filename, job: Job):
     # Implement covnerter like ../../src/mfa2gentle.py
     try:
-        with open(output_dir + "/" + json_filename, "r", encoding='utf-8') as f:
+        with open(output_dir + "/" + json_filename, "rb") as f:
             mfa_data = json.load(f)
             # MFA phones and words
             mfa_phones = mfa_data['tiers']['phones']['entries']

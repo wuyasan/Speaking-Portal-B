@@ -206,11 +206,11 @@ def converter(output_dir, json_filename, job: Job):
                     f.write(mfa2gentle)
                     # print("Wrote converted.json to " + output_dir + "/converted.json")
                     return returnObj.success(
-                        msg="Wrote converted.json to " + output_dir + "/mfa_converted.json",
+                        msg="Wrote converted.json to " + output_dir + "/converted.json",
                         code=200,
-                        data= {
+                        data={
                             "job_id": job.get_job_id(),
-                        }
+                        },
                         job_id=job.get_job_id(),
                     )
             except Exception as e:

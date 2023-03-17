@@ -31,6 +31,8 @@ def generate():
     if lang is None:
         lang = "english"
     
+    # lang to lowercase
+    lang = lang.lower()
     # Check if lang is supported
     if lang not in SUPPORTED_LANGUAGES:
         return returnObj.error(msg="Language not supported\n Select from " + str(SUPPORTED_LANGUAGES), code=400), 400

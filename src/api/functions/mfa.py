@@ -3,18 +3,21 @@ import json
 import subprocess
 import time
 from functions import returnObj
+from functions.jobQueue import Job
 
 models = {
-    "english": {"dictionary": "english_us_arpa", "acoustic_model": "english_us_arpa"}
+    "english": {"dictionary": "english_us_arpa", "acoustic_model": "english_us_arpa"},
+    "japanese": {"dictionary": "japanese_mfa", "acoustic_model": "japanese_mfa"},
+    "french": {"dictionary": "french_mfa", "acoustic_model": "french_mfa"}
 }
 
 
-def validate(job_dir, lang="english"):
+def validate(input_dir, job: Job, lang="english"):
     start = time.time()
     # Run mfa validate subprocess
     pipe = subprocess.run(
         "mfa validate --clean {} {} {}".format(
-            job_dir, models[lang]["dictionary"], models[lang]["acoustic_model"]
+            input_dir, models[lang]["dictionary"], models[lang]["acoustic_model"]
         ),
         shell=True,
         stdout=subprocess.PIPE,
@@ -30,7 +33,9 @@ def validate(job_dir, lang="english"):
             code=500,
             data={
                 "timeTaken": end - start,
+                "job_id": job.get_job_id(),
             },
+            job_id=job.get_job_id(),
         )
     else:
         end = time.time()
@@ -41,19 +46,21 @@ def validate(job_dir, lang="english"):
             code=200,
             data={
                 "timeTaken": end - start,
+                "job_id": job.get_job_id(),
             },
+            job_id=job.get_job_id(),
         )
 
 
-def align(job_dir, lang="english"):
+def align(input_dir, job: Job, lang="english"):
     # Run mfa align subprocess
     start = time.time()
     pipe = subprocess.run(
         "mfa align --clean --output_format json {} {} {} {}".format(
-            job_dir,
+            input_dir,
             models[lang]["dictionary"],
             models[lang]["acoustic_model"],
-            job_dir + "/output",
+            job.get_job_dir() + "/outputs",
         ),
         shell=True,
         stdout=subprocess.PIPE,
@@ -69,7 +76,9 @@ def align(job_dir, lang="english"):
             code=500,
             data={
                 "timeTaken": end - start,
+                "job_id": job.get_job_id(),
             },
+            job_id=job.get_job_id(),
         )
     else:
         end = time.time()
@@ -80,14 +89,16 @@ def align(job_dir, lang="english"):
             code=200,
             data={
                 "timeTaken": end - start,
+                "job_id": job.get_job_id(),
             },
+            job_id=job.get_job_id(),
         )
 
 
-def converter(output_dir, json_filename):
+def converter(output_dir, json_filename, job: Job):
     # Implement covnerter like ../../src/mfa2gentle.py
     try:
-        with open(output_dir + "/" + json_filename, "r", encoding='utf-8') as f:
+        with open(output_dir + "/" + json_filename, "rb") as f:
             mfa_data = json.load(f)
             # MFA phones and words
             mfa_phones = mfa_data['tiers']['phones']['entries']
@@ -192,21 +203,33 @@ def converter(output_dir, json_filename):
             # Add below code to try block
             try:
                 # Write to file
-                with open(output_dir + "/converted.json", "w") as f:
+                with open(output_dir + "/mfa_converted.json", "w") as f:
                     f.write(mfa2gentle)
                     # print("Wrote converted.json to " + output_dir + "/converted.json")
                     return returnObj.success(
                         msg="Wrote converted.json to " + output_dir + "/converted.json",
                         code=200,
+                        data={
+                            "job_id": job.get_job_id(),
+                        },
+                        job_id=job.get_job_id(),
                     )
             except Exception as e:
                 return returnObj.error(
                     msg="Error writing converted.json file: " + str(e),
                     code=500,
+                    data= {
+                        "job_id": job.get_job_id(),
+                    },
+                    job_id=job.get_job_id(),
                 )
 
     except Exception as e:
         return returnObj.error(
             msg="Error opening mfa json file: " + str(e),
             code=500,
+            data= {
+                "job_id": job.get_job_id(),
+            },
+            job_id=job.get_job_id(),
         )

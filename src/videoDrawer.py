@@ -3,6 +3,8 @@ import os
 import json
 import numpy as np
 import random
+import logging
+logging.basicConfig(level=logging.INFO)
 from PIL import Image, ImageDraw
 import pathlib
 #from utils import getFilenameOfLine
@@ -10,6 +12,8 @@ import math
 import platform
 
 import shutil
+import logging
+logging.basicConfig(level=logging.INFO)
 
 FRAME_START_RENDER_AT = 0
 PRINT_EVERY = 10
@@ -36,9 +40,8 @@ def getJiggle(x, fader, multiplier):
     return math.exp(-fader*pow(x/multiplier, 2))*math.sin(x/multiplier)
 
 
-def drawFrame(frameNum, paragraph, emotion, imageNum, pose, phoneNum, poseTimeSinceLast, poseTimeTillNext):
+def drawFrame(frameNum, paragraph, emotion, imageNum, pose, phoneNum, poseTimeSinceLast, poseTimeTillNext, job):
     global MOUTH_COOR
-    global BG_CACHE
     FLIPPED = (paragraph % 2 == 1)
 
     if paragraph == CACHES[0][0]:
@@ -137,16 +140,22 @@ def drawFrame(frameNum, paragraph, emotion, imageNum, pose, phoneNum, poseTimeSi
     if FLIPPED:
         body = body.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
     frame.paste(body, (inx-s_X, iny), body)
-    if not os.path.isdir(str(localpath)+"/generatedVideo/ev_frames"):
-        os.makedirs(str(localpath)+"/generatedVideo/ev_frames")
-    frame.save(str(localpath)+"/generatedVideo/ev_frames/f" +
+    # job_dir path
+    job_dir = job.get_job_dir()
+    video_frames_path = os.path.join(job_dir, 'frames')
+    if not os.path.isdir(video_frames_path):
+        os.makedirs(video_frames_path)
+    frame.save(video_frames_path + "/f" +
                "{:06d}".format(frameNum)+".png")
 
 
-def duplicateFrame(prevFrame, thisFrame):
-    prevFrameFile = str(localpath)+"/generatedVideo/ev_frames/f" + \
+def duplicateFrame(prevFrame, thisFrame, job):
+    # job_dir path
+    job_dir = job.get_job_dir()
+    video_frames_path = os.path.join(job_dir, 'frames')
+    prevFrameFile = video_frames_path + "/f" + \
         "{:06d}".format(prevFrame)+".png"
-    thisFrameFile = str(localpath)+"/generatedVideo/ev_frames/f" + \
+    thisFrameFile = video_frames_path + "/f" + \
         "{:06d}".format(thisFrame)+".png"
     shutil.copyfile(prevFrameFile, thisFrameFile)
 
@@ -238,107 +247,142 @@ def frameOf(p, offset):
     return frames
 
 
-parser = argparse.ArgumentParser(description='blah')
-parser.add_argument('--input_file', type=str,  help='the script')
-parser.add_argument('--use_billboards', type=str,
-                    help='do you want to use billboards or not')
-parser.add_argument('--jiggly_transitions', type=str,
-                    help='Do you want the stick figure to jiggle when transitioning between poses?')
-parser.add_argument('--frame_caching', type=str,
-                    help='Do you want the program to duplicate frame files if they look exactly the same? This will speed up rendering by 5x. By default, this is already enabled!')
-args = parser.parse_args()
-INPUT_FILE = args.input_file
-USE_BILLBOARDS = (args.use_billboards == "T")
-ENABLE_JIGGLING = (args.jiggly_transitions == "T")
-ENABLE_FRAME_CACHING = (args.frame_caching != "F")
+# parser = argparse.ArgumentParser(description='blah')
+# parser.add_argument('--input_file', type=str,  help='the script')
+# parser.add_argument('--use_billboards', type=str,
+#                     help='do you want to use billboards or not')
+# parser.add_argument('--jiggly_transitions', type=str,
+#                     help='Do you want the stick figure to jiggle when transitioning between poses?')
+# parser.add_argument('--frame_caching', type=str,
+#                     help='Do you want the program to duplicate frame files if they look exactly the same? This will speed up rendering by 5x. By default, this is already enabled!')
+# args = parser.parse_args()
+# INPUT_FILE = args.input_file
+# USE_BILLBOARDS = (args.use_billboards == "T")
+# ENABLE_JIGGLING = (args.jiggly_transitions == "T")
+# ENABLE_FRAME_CACHING = (args.frame_caching != "F")
+INPUT_FILE = ''
+USE_BILLBOARDS = False
+ENABLE_JIGGLING = False
+ENABLE_FRAME_CACHING = False
+MOUTH_COORDS_PATH = str(localpath) + "/src/mouthCoordinates.csv"
+
+def runVideoDrawer(schedulePath, job):
+    logging.info("Running Video Drawer...")
+    # Globals
+    global schedules
+    global CACHES
+    global phonemeTimeline
+    global phonemesPerFrame
+    global indicesOn
+    global MOUTH_COOR
+    # Open the schedule file
+    try:
+        f = open(schedulePath, "r+")
+        scheduleLines = f.read().split("\nSECTION\n")
+        f.close()
+    except Exception as e:
+        print("Error opening schedule file: " + str(e))
+        return {
+            "status": "error",
+            "message": "Error opening schedule file: " + str(e),
+            "code": 500,
+            "job_id": job.get_job_id()
+        }
+
+    
+
+    schedules = [None]*PARTS_COUNT
+    for i in range(PARTS_COUNT):
+        schedules[i] = scheduleLines[i].split("\n")
+        if i == 4:
+            schedules[i] = schedules[i][0:-1]
+    lastParts = schedules[-1][-2].split(",")
+    lastTimestamp = float(lastParts[0])
+    FRAME_COUNT = timestepToFrames(lastTimestamp+1)
+    phonemeTimeline = []
+    for i in range(len(schedules[4])):
+        parts = schedules[4][i].split(",")
+        timestamp = float(parts[0])
+        framestamp = timestepToFrames(timestamp)
+        # we have a 0-frame phoneme! Try to fix it.
+        if i >= 1 and framestamp <= phonemeTimeline[-1][1]:
+            if i >= 2 and phonemeTimeline[-2][1] <= framestamp-2:
+                phonemeTimeline[-1][1] = framestamp-1  # shift previous one back
+            else:
+                framestamp += 1  # shift current one forward
+        phoneme = parts[2]
+        phonemeTimeline.append([phoneme, framestamp])
+    phonemeTimeline.append(["end", FRAME_COUNT])
+    phonemesPerFrame = np.zeros(FRAME_COUNT, dtype='int32')
+    for i in range(len(phonemeTimeline)-1):
+        setPhoneme(i)
+
+    # f = open(str(localpath)+"\\data\\text\\test.txt", "r+")
+    # origScript = f.read().split("\n")
+    # f.close()
+    # while "" in origStr:
+    #    origStr.remove("")
 
 
-if sys_info == "Darwin":
-    f = open(str(localpath) + "/data/text/test_schedule.csv", "r+")
-else:
-    f = open(str(localpath) + "\\data\\text\\test_schedule.csv", "r+")
+    # Load the mouth coordinates file
+    try:
+        f = open(MOUTH_COORDS_PATH, "r+")
+    except Exception as e:
+        print("Error opening mouth coordinates file: " + str(e))
+        return {
+            "status": "error",
+            "message": "Error opening mouth coordinates file: " + str(e),
+            "code": 500,
+            "job_id": job.get_job_id()
+        }
+    mouthCoordinatesStr = f.read().split("\n")
+    f.close()
+    MOUTH_COOR = np.zeros((POSE_COUNT, 5))
+    for i in range(len(mouthCoordinatesStr)):
+        parts = mouthCoordinatesStr[i].split(",")
+        for j in range(5):
+            MOUTH_COOR[i, j] = float(parts[j])
+    MOUTH_COOR[:, 0:2] *= 3  # upscale for 1080p, not 360p
 
-scheduleLines = f.read().split("\nSECTION\n")
-f.close()
+    lastFrameInfo = None
+    CACHES = [[None, None]]*PARTS_COUNT
+    FRAME_CACHES = {}
+    indicesOn = [-1]*(PARTS_COUNT-1)
+    for frame in range(0, FRAME_COUNT):
+        for p in range(PARTS_COUNT-1):
+            frameOfNext = frameOf(p, 1)
+            if frameOfNext >= 0 and frame >= frameOfNext:
+                indicesOn[p] += 1
+        paragraph = stateOf(0)
+        emotion = stateOf(1)
+        imageNum = stateOf(2)
+        pose = stateOf(3)
+        timeSincePrevPoseChange = frame-frameOf(3, 0)
+        timeUntilNextPoseChange = frameOf(3, 1)-frame
 
-schedules = [None]*PARTS_COUNT
-for i in range(PARTS_COUNT):
-    schedules[i] = scheduleLines[i].split("\n")
-    if i == 4:
-        schedules[i] = schedules[i][0:-1]
-lastParts = schedules[-1][-2].split(",")
-lastTimestamp = float(lastParts[0])
-FRAME_COUNT = timestepToFrames(lastTimestamp+1)
-phonemeTimeline = []
-for i in range(len(schedules[4])):
-    parts = schedules[4][i].split(",")
-    timestamp = float(parts[0])
-    framestamp = timestepToFrames(timestamp)
-    # we have a 0-frame phoneme! Try to fix it.
-    if i >= 1 and framestamp <= phonemeTimeline[-1][1]:
-        if i >= 2 and phonemeTimeline[-2][1] <= framestamp-2:
-            phonemeTimeline[-1][1] = framestamp-1  # shift previous one back
-        else:
-            framestamp += 1  # shift current one forward
-    phoneme = parts[2]
-    phonemeTimeline.append([phoneme, framestamp])
-phonemeTimeline.append(["end", FRAME_COUNT])
-phonemesPerFrame = np.zeros(FRAME_COUNT, dtype='int32')
-for i in range(len(phonemeTimeline)-1):
-    setPhoneme(i)
+        TSPPC_cache = min(timeSincePrevPoseChange,
+                        MAX_JIGGLE_TIME) if ENABLE_JIGGLING else 0
+        TUNPC_cache = min(timeUntilNextPoseChange,
+                        MAX_JIGGLE_TIME) if ENABLE_JIGGLING else 0
+        IMAGE_cache = imageNum if USE_BILLBOARDS else 0
 
-# f = open(str(localpath)+"\\data\\text\\test.txt", "r+")
-# origScript = f.read().split("\n")
-# f.close()
-# while "" in origStr:
-#    origStr.remove("")
+        thisFrameInfo = infoToString(
+            [paragraph, emotion, IMAGE_cache, pose, phonemesPerFrame[frame], TSPPC_cache, TUNPC_cache])
+        if ENABLE_FRAME_CACHING and thisFrameInfo not in FRAME_CACHES:
+            FRAME_CACHES[thisFrameInfo] = frame
 
-
-if sys_info == "Darwin":
-    f = open(str(localpath) + "/src/mouthCoordinates.csv", "r+")
-else:
-    f = open(str(localpath)+"\\src\\mouthCoordinates.csv", "r+")
-mouthCoordinatesStr = f.read().split("\n")
-f.close()
-MOUTH_COOR = np.zeros((POSE_COUNT, 5))
-for i in range(len(mouthCoordinatesStr)):
-    parts = mouthCoordinatesStr[i].split(",")
-    for j in range(5):
-        MOUTH_COOR[i, j] = float(parts[j])
-MOUTH_COOR[:, 0:2] *= 3  # upscale for 1080p, not 360p
-
-lastFrameInfo = None
-CACHES = [[None, None]]*PARTS_COUNT
-FRAME_CACHES = {}
-indicesOn = [-1]*(PARTS_COUNT-1)
-for frame in range(0, FRAME_COUNT):
-    for p in range(PARTS_COUNT-1):
-        frameOfNext = frameOf(p, 1)
-        if frameOfNext >= 0 and frame >= frameOfNext:
-            indicesOn[p] += 1
-    paragraph = stateOf(0)
-    emotion = stateOf(1)
-    imageNum = stateOf(2)
-    pose = stateOf(3)
-    timeSincePrevPoseChange = frame-frameOf(3, 0)
-    timeUntilNextPoseChange = frameOf(3, 1)-frame
-
-    TSPPC_cache = min(timeSincePrevPoseChange,
-                      MAX_JIGGLE_TIME) if ENABLE_JIGGLING else 0
-    TUNPC_cache = min(timeUntilNextPoseChange,
-                      MAX_JIGGLE_TIME) if ENABLE_JIGGLING else 0
-    IMAGE_cache = imageNum if USE_BILLBOARDS else 0
-
-    thisFrameInfo = infoToString(
-        [paragraph, emotion, IMAGE_cache, pose, phonemesPerFrame[frame], TSPPC_cache, TUNPC_cache])
-    if ENABLE_FRAME_CACHING and thisFrameInfo not in FRAME_CACHES:
-        FRAME_CACHES[thisFrameInfo] = frame
-
-    if frame >= FRAME_START_RENDER_AT:
-        if ENABLE_FRAME_CACHING and FRAME_CACHES[thisFrameInfo] < frame:
-            duplicateFrame(FRAME_CACHES[thisFrameInfo], frame)
-        else:
-            drawFrame(frame, paragraph, emotion, imageNum, pose,
-                      phonemesPerFrame[frame], timeSincePrevPoseChange, timeUntilNextPoseChange)
-        if frame % PRINT_EVERY == 0 or frame == FRAME_COUNT-1:
-            print(f"Just drew frame {frame+1} / {FRAME_COUNT}")
+        if frame >= FRAME_START_RENDER_AT:
+            if ENABLE_FRAME_CACHING and FRAME_CACHES[thisFrameInfo] < frame:
+                duplicateFrame(FRAME_CACHES[thisFrameInfo], frame)
+            else:
+                drawFrame(frame, paragraph, emotion, imageNum, pose,
+                        phonemesPerFrame[frame], timeSincePrevPoseChange, timeUntilNextPoseChange, job=job)
+            if frame % PRINT_EVERY == 0 or frame == FRAME_COUNT-1:
+                print(f"Just drew frame {frame+1} / {FRAME_COUNT}")
+    logging.info("Finished drawing frames")
+    return {
+        "status": "success",
+        "message": "Finished drawing frames",
+        "code": 200,
+        "job_id": job.get_job_id()
+    }

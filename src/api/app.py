@@ -25,7 +25,6 @@ job_queue = JobQueue()
 # RETURN: JSON object with status, code, data
 @app.route('/generate', methods=['PUT'])
 def generate():
-    print("Received request to generate video")
     # Get lang from request
     lang = request.values['lang']
     if lang is None:
@@ -40,12 +39,12 @@ def generate():
     # TODO: Check file extensions is correct. If it's a .txt then convert to .lab. If it's a .mp3 then convert to .wav
     text_file = request.files['text_file']
     audio_file = request.files['audio_file']
-
+    
     # Check if text_file has been received
-    if text_file is None:
+    if text_file.filename == '' or text_file.content_type != "text/plain":
         return returnObj.error(msg="No text file received", code=400), 400
     # Check if audio_file has been received
-    if audio_file is None:
+    if audio_file.filename == '' or audio_file.content_type != "audio/wave":
         return returnObj.error(msg="No audio file received", code=400), 400
     else: 
         # Create a new job

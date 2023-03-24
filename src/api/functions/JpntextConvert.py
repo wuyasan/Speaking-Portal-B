@@ -6,9 +6,7 @@ def JpntextConvert(input_path, output_path, job: jobQueue.Job = None):
     try:
         with open(input_path, 'r+', encoding='UTF-8') as f:
             text = f.read()
-            print("OG JAPNESE TEXT: " + text)
             result = " ".join(list(text))
-            print("RESULT: " + result)
             f.write(result)
             f.close()
             return returnObj.success(msg="Japanese text converted to ARPA", data={"output_path": output_path}, job_id=job.get_job_id())

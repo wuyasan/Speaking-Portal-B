@@ -28,7 +28,7 @@ We have a "src" folder inside the repository which is where the code and api are
 
 ## Step by Step Instruction
 After install all the required packages and environment, the application is ready for using. This instruction will cover how to test the application with postman.
-1. Before using the application, make sure to run ```conda activate aligner``` in the terminal and run ```conda deactivate``` after finishing with the application.
+1. Before using the application, make sure to run ```conda activate aligner``` in the terminal.
 2. Within aligner, use cd commands to get to the src/api folder inside the application.
 3. Use ```flask run``` command to start the api server and copy the address after ```Running on```
 4. Inside the Speaking-Portal-B/data/mfadata folder, the test files of three languages are prepared.
@@ -36,3 +36,4 @@ After install all the required packages and environment, the application is read
 6. Select the text file and aduio file, then enter the corresponding language names.
 7. Click send and wait for the video to pop up.
 8. Enjoy your video!
+9. After finish video generation, run ```conda deactivate``` in the terminal to stop the aligner.

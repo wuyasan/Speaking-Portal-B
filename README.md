@@ -4,6 +4,14 @@
 
 **DESCRIPTION**:  The team will build a web app compatible with Kukarella’s tech stack. The output of the web app should be something that is embeddable into a website, ideally an image or video. The input should ideally be via a web HTTP request or as a JS API. Kukarella's code base is written in TypeScript, with a React front-end and a NodeJS Express backend API server; as long as the input is accessible from our backend in some way, it is acceptable. Ideally, for a user, the process of creating a speaking portrait would look something like this: The user enters the text he wants to listen to; uploads a photo of a person or illustration of a character who will read the text; selects a language and voice; presses the "speak" button; and then he can watch and listen to the resulting animated image with a voice over.  
 
+## Sturcture of the Repository
+### Data Folder
+This folder contains all the text files with their corresponding audio files that is used to test the application.
+### Docs Folder
+All files that are use for documentation purpose are stored in this folder.
+### Src Folder
+This is where we store all the files that are related to code and anime generation like mouth shape, character's poses and background of the animation. Also we have our api server files inside this folder.
+
 ## Steps of Installation
 ### Language Requirements
 1. Install Python

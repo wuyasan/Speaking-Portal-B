@@ -9,8 +9,6 @@ import logging
 from phoneToMouthMap import getMouthDict
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve()
 logging.basicConfig(level=logging.INFO)
-print("Scheduler.py localpath: "+str(localpath))
-logging.info("Scheduler.py localpath: "+str(localpath))
 
 
 def addPhoneme(p, t):

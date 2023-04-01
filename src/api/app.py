@@ -11,9 +11,12 @@ from flask import Flask, request, send_from_directory
 from functions import receiveFiles, returnObj, mfa, JpntextConvert, IPAtoARPA
 from functions.jobQueue import JobQueue, Job, JobStatus
 from src import scheduler, videoDrawer
+
+# Flask Setup
 app = Flask(__name__)
-SUPPORTED_LANGUAGES = ["english", "french", "japanese"]
 app.config["SERVER_FILES"] = os.getcwd() + "/server_files"
+
+SUPPORTED_LANGUAGES = ["english", "french", "japanese"]
 # Initialize JobQueue
 job_queue = JobQueue()
 
@@ -25,7 +28,6 @@ job_queue = JobQueue()
 # RETURN: JSON object with status, code, data
 @app.route('/generate', methods=['PUT'])
 def generate():
-    print("Received request to generate video")
     # Get lang from request
     lang = request.values['lang']
     if lang is None:
@@ -42,10 +44,10 @@ def generate():
     audio_file = request.files['audio_file']
 
     # Check if text_file has been received
-    if text_file is None:
+    if text_file.filename == '' or text_file.content_type != "text/plain":
         return returnObj.error(msg="No text file received", code=400), 400
     # Check if audio_file has been received
-    if audio_file is None:
+    if audio_file.filename == '' or audio_file.content_type != "audio/wave":
         return returnObj.error(msg="No audio file received", code=400), 400
     else: 
         # Create a new job
@@ -193,3 +195,7 @@ def generate():
         # Send video file and delete job from queue
         return send_from_directory(output_path, "generatedVideo.mp4")
         # return returnObj.success(msg="Video generated successfully", data={"job_id": job.get_job_id()}), 200
+
+if __name__ == '__main__':
+    print("Starting server...")
+    app.run(port=5000, processes=3, threaded=False)

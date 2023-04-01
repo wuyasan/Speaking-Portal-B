@@ -22,7 +22,7 @@ def receive_files(text_file, audio_file, job: Job):
     try:
         with open(inputs_dir + "/" + text_filename, "r", encoding='utf-8') as file:
             text = file.read()
-            print("Reading text file...")
+            logging.info("Reading text file...")
             print(text)
     except Exception as e:
         print("Error reading text file: " + str(e))
@@ -37,7 +37,7 @@ def receive_files(text_file, audio_file, job: Job):
     try:
         with open(inputs_dir + "/" + audio_filename, "rb") as file:
             audio = file.read()
-            print("Reading audio file...")
+            logging.info("Reading audio file...")
             # print(audio)
     except Exception as e:
         print("Error reading audio file: " + str(e))

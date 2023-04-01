@@ -31,7 +31,6 @@ MAX_JIGGLE_TIME = 7
 BACKGROUND_COUNT = 5
 sys_info = platform.system()
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve()
-print("localpath in videoDrawer.py: ", localpath)
 
 
 def getJiggle(x, fader, multiplier):

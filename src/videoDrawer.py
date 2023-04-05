@@ -47,7 +47,7 @@ def drawFrame(frameNum, paragraph, emotion, imageNum, pose, phoneNum, poseTimeSi
     if paragraph == CACHES[0][0]:
         frame = CACHES[0][1]
     else:
-        frame = Image.open(str(localpath) + "/backgrounds/bga"+str(paragraph %
+        frame = Image.open(str(localpath) + "src/backgrounds/bga"+str(paragraph %
                            BACKGROUND_COUNT)+".png")
         CACHES[0] = [paragraph, frame]
     # Makes the entire background image move 50% closer to white. In other words, it's paler.
@@ -103,12 +103,12 @@ def drawFrame(frameNum, paragraph, emotion, imageNum, pose, phoneNum, poseTimeSi
 
     poseIndex = emotion*5+pose
     poseIndexBlinker = poseIndex*3+blinker
-    body = Image.open(str(localpath) + "/poses150/pose"+"{:04d}".format(poseIndexBlinker+1)+".png")
+    body = Image.open(str(localpath) + "src/poses150/pose"+"{:04d}".format(poseIndexBlinker+1)+".png")
 
     mouthImageNum = phoneNum+1
     if EMOTION_POSITIVITY[emotion] == 0:
         mouthImageNum += 11
-    mouth = Image.open(str(localpath) + "/oldmouth35/mouth"+"{:04d}".format(mouthImageNum)+".png")
+    mouth = Image.open(str(localpath) + "src/oldmouth35/mouth"+"{:04d}".format(mouthImageNum)+".png")
 
     if MOUTH_COOR[poseIndex, 2] < 0:
         mouth = mouth.transpose(Image.Transpose.FLIP_LEFT_RIGHT)

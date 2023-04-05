@@ -9,8 +9,6 @@ import logging
 from phoneToMouthMap import getMouthDict
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve()
 logging.basicConfig(level=logging.INFO)
-print("Scheduler.py localpath: "+str(localpath))
-logging.info("Scheduler.py localpath: "+str(localpath))
 
 
 def addPhoneme(p, t):
@@ -85,12 +83,6 @@ def frame_schedule(textPath, aligned_json_path, job, lang="ENGLISH"):
     ENDING_PHONEME = "m"
     STOPPERS = [",", ";", ".", ":", "!", "?"]
 
-    # parser = argparse.ArgumentParser(description='blah')
-    # parser.add_argument('--input_file', type=str,  help='the script')
-    # args = parser.parse_args()
-    # INPUT_FILE = args.input_file
-    # logging.info("INPUT_FILE in frame_schedule: "+str(INPUT_FILE))
-
     # Load the text_file provided by user
     f = open(textPath, "r+", encoding='UTF-8')
     originalScript = f.read()
@@ -98,14 +90,6 @@ def frame_schedule(textPath, aligned_json_path, job, lang="ENGLISH"):
     # Making it uppercase avoids ValueError in originalScript.index(wordString, OS_IndexAt)+len(wordString) as the wordString obtained from json is uppercase
     originalScript = originalScript.upper()
     logging.info("Loaded original script: \n"+str(originalScript))
-
-    #if(path.exists(str(localpath)+"/data/text/mfa2gentle.json")): 
-        #print("MFA")   #if MFA is detected use MFA json
-        #f = open(str(localpath)+"/data/text/mfa2gentle.json", "r+")
-        #fileData = f.read()
-        #f.close()
-    #else:
-       # print("Gentle")                                             #if no MFA use gentle json
     
     # Load the converted aligned json file
     f = open(aligned_json_path, "r")
@@ -163,10 +147,6 @@ def frame_schedule(textPath, aligned_json_path, job, lang="ENGLISH"):
         if "\n" in nextDigest and data['words'][i-1]['case'] != 'not-found-in-audio' and (prevPhoneme == "a" or prevPhoneme == "f" or prevPhoneme == "u" or prevPhoneme == "y"):
             addPhoneme("m", data['words'][i-1]["end"])
 
-        """print(wordString)
-        print(str(OS_IndexAt)+", "+str(OS_nextIndex))
-        print(nextDigest)
-        print("")"""
         pickedPose = False
         
         # Changing posing based on punctuation in the script

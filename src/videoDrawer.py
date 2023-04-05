@@ -31,7 +31,6 @@ MAX_JIGGLE_TIME = 7
 BACKGROUND_COUNT = 5
 sys_info = platform.system()
 localpath = pathlib.Path(__file__).parent.resolve().parent.resolve()
-print("localpath in videoDrawer.py: ", localpath)
 
 
 def getJiggle(x, fader, multiplier):
@@ -47,7 +46,7 @@ def drawFrame(frameNum, paragraph, emotion, imageNum, pose, phoneNum, poseTimeSi
     if paragraph == CACHES[0][0]:
         frame = CACHES[0][1]
     else:
-        frame = Image.open(str(localpath) + "src/backgrounds/bga"+str(paragraph %
+        frame = Image.open(str(localpath) + "/src/backgrounds/bga"+str(paragraph %
                            BACKGROUND_COUNT)+".png")
         CACHES[0] = [paragraph, frame]
     # Makes the entire background image move 50% closer to white. In other words, it's paler.
@@ -103,12 +102,12 @@ def drawFrame(frameNum, paragraph, emotion, imageNum, pose, phoneNum, poseTimeSi
 
     poseIndex = emotion*5+pose
     poseIndexBlinker = poseIndex*3+blinker
-    body = Image.open(str(localpath) + "src/poses150/pose"+"{:04d}".format(poseIndexBlinker+1)+".png")
+    body = Image.open(str(localpath) + "/src/poses150/pose"+"{:04d}".format(poseIndexBlinker+1)+".png")
 
     mouthImageNum = phoneNum+1
     if EMOTION_POSITIVITY[emotion] == 0:
         mouthImageNum += 11
-    mouth = Image.open(str(localpath) + "src/oldmouth35/mouth"+"{:04d}".format(mouthImageNum)+".png")
+    mouth = Image.open(str(localpath) + "/src/oldmouth35/mouth"+"{:04d}".format(mouthImageNum)+".png")
 
     if MOUTH_COOR[poseIndex, 2] < 0:
         mouth = mouth.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
@@ -246,20 +245,6 @@ def frameOf(p, offset):
     frames = timestepToFrames(timestep)
     return frames
 
-
-# parser = argparse.ArgumentParser(description='blah')
-# parser.add_argument('--input_file', type=str,  help='the script')
-# parser.add_argument('--use_billboards', type=str,
-#                     help='do you want to use billboards or not')
-# parser.add_argument('--jiggly_transitions', type=str,
-#                     help='Do you want the stick figure to jiggle when transitioning between poses?')
-# parser.add_argument('--frame_caching', type=str,
-#                     help='Do you want the program to duplicate frame files if they look exactly the same? This will speed up rendering by 5x. By default, this is already enabled!')
-# args = parser.parse_args()
-# INPUT_FILE = args.input_file
-# USE_BILLBOARDS = (args.use_billboards == "T")
-# ENABLE_JIGGLING = (args.jiggly_transitions == "T")
-# ENABLE_FRAME_CACHING = (args.frame_caching != "F")
 INPUT_FILE = ''
 USE_BILLBOARDS = False
 ENABLE_JIGGLING = False
@@ -289,8 +274,6 @@ def runVideoDrawer(schedulePath, job):
             "job_id": job.get_job_id()
         }
 
-    
-
     schedules = [None]*PARTS_COUNT
     for i in range(PARTS_COUNT):
         schedules[i] = scheduleLines[i].split("\n")
@@ -316,13 +299,6 @@ def runVideoDrawer(schedulePath, job):
     phonemesPerFrame = np.zeros(FRAME_COUNT, dtype='int32')
     for i in range(len(phonemeTimeline)-1):
         setPhoneme(i)
-
-    # f = open(str(localpath)+"\\data\\text\\test.txt", "r+")
-    # origScript = f.read().split("\n")
-    # f.close()
-    # while "" in origStr:
-    #    origStr.remove("")
-
 
     # Load the mouth coordinates file
     try:
